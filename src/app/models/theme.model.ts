@@ -134,8 +134,8 @@ export const THEMES: Record<string, Theme> = {
       danger: '#dc143c'
     },
     fonts: {
-      primary: "'Dancing Script', 'Brush Script MT', cursive",
-      decorative: "'Dancing Script', cursive"
+      primary: "'Poppins', 'Arial', sans-serif",
+      decorative: "'Playfair Display', serif"
     }
   }
 } as const;
