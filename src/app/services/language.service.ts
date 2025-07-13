@@ -56,7 +56,8 @@ export class LanguageService {
       totalTransactions: translations.totalTransactions[themeKey],
       expensesByCategory: translations.expensesByCategory[themeKey],
       recentTransactions: translations.recentTransactions[themeKey],
-      categories: Object.values(translations.categories[themeKey])
+      categories: Object.values(translations.categories[themeKey]),
+      tour: translations.tour
     };
   }
 

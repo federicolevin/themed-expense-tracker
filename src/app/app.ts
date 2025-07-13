@@ -3,8 +3,10 @@ import { ExpenseFormComponent } from './components/expense-form/expense-form.com
 import { ExpenseListComponent } from './components/expense-list/expense-list.component';
 import { ExpenseDashboardComponent } from './components/expense-dashboard/expense-dashboard.component';
 import { SettingsSidebarComponent } from './components/settings-sidebar/settings-sidebar.component';
+import { TourOverlayComponent } from './components/tour-overlay/tour-overlay.component';
 import { ThemeService } from './services/theme.service';
 import { LanguageService } from './services/language.service';
+import { TourService } from './services/tour.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +15,8 @@ import { LanguageService } from './services/language.service';
     ExpenseFormComponent, 
     ExpenseListComponent, 
     ExpenseDashboardComponent, 
-    SettingsSidebarComponent
+    SettingsSidebarComponent,
+    TourOverlayComponent
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss'
@@ -21,6 +24,7 @@ import { LanguageService } from './services/language.service';
 export class AppComponent {
   themeService = inject(ThemeService);
   languageService = inject(LanguageService);
+  tourService = inject(TourService);
 
   // Computed property for localized content
   content = computed(() => {
@@ -33,5 +37,15 @@ export class AppComponent {
     effect(() => {
       document.title = this.content().appTitle;
     });
+
+    // Start tour automatically for first-time users
+    effect(() => {
+      // Wait a bit for the app to fully load
+      setTimeout(() => {
+        if (!this.tourService.hasSeenTour()) {
+          this.tourService.startTour();
+        }
+      }, 1000);
+    }, { allowSignalWrites: true });
   }
 }
