@@ -30,22 +30,36 @@ import { ThemeId } from '../models/theme.model';
   `,
   styles: [`
     .theme-selector {
-      background: var(--theme-card-background, rgba(25, 25, 112, 0.95));
-      border: 2px solid var(--theme-border, #8b4513);
+      background: var(--theme-card-background);
+      border: 2px solid var(--theme-border);
       border-radius: 15px;
       padding: 20px;
-      margin-bottom: 24px;
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
       position: relative;
+      overflow: hidden;
     }
 
-    h3 {
-      margin: 0 0 16px 0;
-      color: var(--theme-primary, #ffd700);
-      font-size: 1.2rem;
-      font-weight: 600;
-      font-family: var(--theme-font-decorative, 'Cinzel Decorative', serif);
-      text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
-      text-align: center;
+    .theme-selector::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, var(--theme-primary), var(--theme-accent), var(--theme-secondary), var(--theme-primary));
+      border-radius: 15px;
+      z-index: -1;
+      animation: borderGlow 3s linear infinite;
+      background-size: 400% 400%;
+    }
+
+    @keyframes borderGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .selector-title {
@@ -66,7 +80,7 @@ import { ThemeId } from '../models/theme.model';
 
     .theme-option {
       background: rgba(255, 255, 255, 0.1);
-      border: 2px solid var(--theme-border, #8b4513);
+      border: 2px solid var(--theme-border);
       border-radius: 10px;
       padding: 12px 8px;
       cursor: pointer;
@@ -75,7 +89,7 @@ import { ThemeId } from '../models/theme.model';
       flex-direction: column;
       align-items: center;
       gap: 6px;
-      font-family: var(--theme-font-primary, 'Cinzel', serif);
+      font-family: var(--theme-font-primary);
       position: relative;
       overflow: hidden;
     }
@@ -99,13 +113,13 @@ import { ThemeId } from '../models/theme.model';
     .theme-option:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      border-color: var(--theme-primary, #ffd700);
+      border-color: var(--theme-primary);
     }
 
     .theme-option.active {
-      border-color: var(--theme-primary, #ffd700);
-      background: rgba(255, 215, 0, 0.2);
-      box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+      border-color: var(--theme-primary);
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 15px var(--theme-primary);
       transform: scale(1.05);
     }
 
@@ -121,8 +135,8 @@ import { ThemeId } from '../models/theme.model';
     }
 
     .theme-option.active .theme-preview {
-      border-color: var(--theme-primary, #ffd700);
-      box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+      border-color: var(--theme-primary);
+      box-shadow: 0 0 8px var(--theme-primary);
     }
 
     .theme-emoji {
@@ -131,7 +145,7 @@ import { ThemeId } from '../models/theme.model';
     }
 
     .theme-name {
-      color: var(--theme-text-primary, #f4f4f4);
+      color: var(--theme-text-primary);
       font-size: 0.85rem;
       font-weight: 600;
       text-align: center;
@@ -139,7 +153,7 @@ import { ThemeId } from '../models/theme.model';
     }
 
     .theme-option.active .theme-name {
-      color: var(--theme-primary, #ffd700);
+      color: var(--theme-primary);
     }
 
     @media (max-width: 768px) {

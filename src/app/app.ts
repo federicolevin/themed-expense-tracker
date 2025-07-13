@@ -2,8 +2,7 @@ import { Component, ChangeDetectionStrategy, inject, computed, effect } from '@a
 import { ExpenseFormComponent } from './components/expense-form.component';
 import { ExpenseListComponent } from './components/expense-list.component';
 import { ExpenseDashboardComponent } from './components/expense-dashboard.component';
-import { ThemeSelectorComponent } from './components/theme-selector.component';
-import { LanguageSelectorComponent } from './components/language-selector.component';
+import { SettingsSidebarComponent } from './components/settings-sidebar.component';
 import { ThemeService } from './services/theme.service';
 import { LanguageService } from './services/language.service';
 
@@ -14,8 +13,7 @@ import { LanguageService } from './services/language.service';
     ExpenseFormComponent, 
     ExpenseListComponent, 
     ExpenseDashboardComponent, 
-    ThemeSelectorComponent,
-    LanguageSelectorComponent
+    SettingsSidebarComponent
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss'

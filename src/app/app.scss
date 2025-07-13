@@ -43,7 +43,7 @@ body::before {
 
 .app-container {
   min-height: 100vh;
-  padding: 20px;
+  padding: 80px 20px 20px 20px; /* Extra padding top for settings button */
   position: relative;
   z-index: 2;
 }
@@ -107,19 +107,11 @@ body::before {
 .content-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto auto auto;
+  grid-template-rows: auto auto;
   gap: 24px;
   grid-template-areas:
-    "selectors selectors"
     "form dashboard"
     "list list";
-}
-
-.selectors-section {
-  grid-area: selectors;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
 }
 
 .form-section {
@@ -187,21 +179,15 @@ body::before {
   .content-grid {
     grid-template-columns: 1fr;
     grid-template-areas:
-      "selectors"
       "form"
       "dashboard"
       "list";
-  }
-
-  .selectors-section {
-    grid-template-columns: 1fr;
-    gap: 16px;
   }
 }
 
 @media (max-width: 768px) {
   .app-container {
-    padding: 16px;
+    padding: 70px 16px 16px 16px; /* Adjusted for smaller settings button */
   }
 
   .app-header h1 {
