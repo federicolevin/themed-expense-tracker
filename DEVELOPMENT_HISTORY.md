@@ -1,6 +1,6 @@
-# Personal Expense Tracker - Development History
+# Themed Expense Tracker - Development History
 
-**Project:** Angular Personal Expense Tracker
+**Project:** Themed Expense Tracker
 **Date:** July 13, 2025
 **Developer:** GitHub Copilot
 **Framework:** Angular (Standalone Components, Zoneless)
