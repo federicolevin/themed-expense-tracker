@@ -1,0 +1,18 @@
+    <div class="theme-selector">
+      <h3 class="selector-title">{{ languageService.getUITranslations().themeSelector.title }}</h3>
+      <div class="theme-grid">
+        @for (theme of themeService.availableThemes(); track theme.id) {
+          <button
+            class="theme-option"
+            [class.active]="theme.id === themeService.currentTheme().id"
+            (click)="selectTheme(theme.id)"
+            [title]="languageService.getUITranslations().themeSelector.tooltip"
+          >
+            <div class="theme-preview" [style]="getThemePreviewStyle(theme.id)">
+              <span class="theme-emoji">{{ theme.emoji }}</span>
+            </div>
+            <span class="theme-name">{{ theme.name }}</span>
+          </button>
+        }
+      </div>
+    </div>

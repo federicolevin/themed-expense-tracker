@@ -1,0 +1,64 @@
+    <div class="dashboard magical-card">
+      <div class="dashboard-header">
+        <h2>{{ content().dashboardTitle }}</h2>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card total">
+          <div class="stat-icon">💰</div>
+          <div class="stat-label">Total Money Spent</div>
+          <div class="stat-value">{{ totalExpenses().toFixed(2) }}{{ themeService.currentTheme().currency }}</div>
+        </div>
+
+        <div class="stat-card count">
+          <div class="stat-icon">📜</div>
+          <div class="stat-label">Total Transactions</div>
+          <div class="stat-value">{{ expenses().length }}</div>
+        </div>
+
+        @if (expenses().length > 0) {
+          <div class="stat-card average">
+            <div class="stat-icon">⚡</div>
+            <div class="stat-label">Average per Transaction</div>
+            <div class="stat-value">{{ getAverageExpense().toFixed(2) }}{{ themeService.currentTheme().currency }}</div>
+          </div>
+        }
+      </div>
+
+      @if (getCategoriesSorted().length > 0) {
+        <div class="categories-section">
+          <h3>🏪 Expenses by Category</h3>
+          <div class="category-list">
+            @for (item of getCategoriesSorted(); track item.category) {
+              <div class="category-item">
+                <div class="category-info">
+                  <span class="category-name">{{ item.category }}</span>
+                  <span class="category-percentage">{{ item.percentage.toFixed(1) }}%</span>
+                </div>
+                <div class="category-bar">
+                  <div 
+                    class="category-fill" 
+                    [style.width.%]="item.percentage"
+                  ></div>
+                </div>
+                <div class="category-amount">{{ item.amount.toFixed(2) }}{{ themeService.currentTheme().currency }}</div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      @if (recentExpenses().length > 0) {
+        <div class="recent-section">
+          <h3>🕰️ Recent Transactions</h3>
+          <div class="recent-list">
+            @for (expense of recentExpenses(); track expense.id) {
+              <div class="recent-item">
+                <div class="recent-description">{{ expense.description }}</div>
+                <div class="recent-amount">{{ expense.amount.toFixed(2) }}{{ themeService.currentTheme().currency }}</div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>

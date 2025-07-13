@@ -1,8 +1,8 @@
 import { Component, ChangeDetectionStrategy, inject, computed, effect } from '@angular/core';
-import { ExpenseFormComponent } from './components/expense-form.component';
-import { ExpenseListComponent } from './components/expense-list.component';
-import { ExpenseDashboardComponent } from './components/expense-dashboard.component';
-import { SettingsSidebarComponent } from './components/settings-sidebar.component';
+import { ExpenseFormComponent } from './components/expense-form/expense-form.component';
+import { ExpenseListComponent } from './components/expense-list/expense-list.component';
+import { ExpenseDashboardComponent } from './components/expense-dashboard/expense-dashboard.component';
+import { SettingsSidebarComponent } from './components/settings-sidebar/settings-sidebar.component';
 import { ThemeService } from './services/theme.service';
 import { LanguageService } from './services/language.service';
 

@@ -1,0 +1,47 @@
+    <div class="list-container magical-card">
+      <div class="list-header">
+        <h2>{{ content().listTitle }}</h2>
+        <div class="header-actions">
+          <span class="expense-count">{{ expenses().length }} transactions</span>
+          @if (expenses().length > 0) {
+            <button 
+              class="clear-all-btn magical-button-danger"
+              (click)="clearAllExpenses()"
+              title="Clear all expenses"
+            >
+              {{ content().clearAllButton }}
+            </button>
+          }
+        </div>
+      </div>
+
+      @if (expenses().length === 0) {
+        <div class="empty-state">
+          <div class="empty-icon">🦉</div>
+          <p>No transactions recorded yet.</p>
+          <p>Add your first expense above to begin tracking!</p>
+        </div>
+      } @else {
+        <div class="expense-list">
+          @for (expense of expenses(); track expense.id) {
+            <div class="expense-item">
+              <div class="expense-main">
+                <div class="expense-description">{{ expense.description }}</div>
+                <div class="expense-category">{{ expense.category }}</div>
+              </div>
+              <div class="expense-details">
+                <div class="expense-amount">{{ expense.amount.toFixed(2) }}{{ themeService.currentTheme().currency }}</div>
+                <div class="expense-date">{{ formatDate(expense.date) }}</div>
+              </div>
+              <button 
+                class="delete-btn"
+                (click)="deleteExpense(expense.id)"
+                [title]="content().deleteButton"
+              >
+                ⚡
+              </button>
+            </div>
+          }
+        </div>
+      }
+    </div>

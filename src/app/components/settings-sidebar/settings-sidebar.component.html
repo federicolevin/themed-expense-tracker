@@ -1,0 +1,43 @@
+    <div class="settings-container">
+      <!-- Settings Button -->
+      <button
+        class="settings-toggle"
+        (click)="toggleSidebar()"
+        [class.active]="isOpen()"
+        type="button">
+        <span class="gear-icon">⚙️</span>
+      </button>
+
+      <!-- Sidebar Overlay -->
+      <div
+        class="sidebar-overlay"
+        [class.show]="isOpen()"
+        (click)="closeSidebar()">
+      </div>
+
+      <!-- Settings Sidebar -->
+      <div
+        class="settings-sidebar"
+        [class.open]="isOpen()">
+
+        <div class="sidebar-header">
+          <h3>⚙️ Configuración</h3>
+          <button
+            class="close-button"
+            (click)="closeSidebar()"
+            type="button">
+            ✕
+          </button>
+        </div>
+
+        <div class="sidebar-content">
+          <div class="setting-section">
+            <app-theme-selector />
+          </div>
+
+          <div class="setting-section">
+            <app-language-selector />
+          </div>
+        </div>
+      </div>
+    </div>

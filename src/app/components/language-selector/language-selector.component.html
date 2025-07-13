@@ -1,0 +1,16 @@
+    <div class="language-selector">
+      <h3 class="selector-title">{{ languageService.getUITranslations().languageSelector.title }}</h3>
+      <div class="language-grid">
+        @for (language of languageService.availableLanguages(); track language.id) {
+          <div 
+            class="language-option"
+            [class.active]="language.id === languageService.currentLanguage().id"
+            (click)="selectLanguage(language.id)"
+            [title]="languageService.getUITranslations().languageSelector.tooltip"
+          >
+            <div class="language-flag">{{ language.flag }}</div>
+            <div class="language-name">{{ language.nativeName }}</div>
+          </div>
+        }
+      </div>
+    </div>
