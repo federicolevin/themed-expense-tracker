@@ -2,29 +2,7 @@ export interface Theme {
   id: string;
   name: string;
   emoji: string;
-  appTitle: string;
-  appSubtitle: string;
   currency: string;
-  categories: readonly string[];
-  labels: {
-    formTitle: string;
-    dashboardTitle: string;
-    listTitle: string;
-    amountLabel: string;
-    addButton: string;
-    clearAllButton: string;
-    clearAllConfirm: string;
-    deleteButton: string;
-    descriptionLabel: string;
-    descriptionPlaceholder: string;
-    descriptionError: string;
-    amountError: string;
-    categoryLabel: string;
-    categoryPlaceholder: string;
-    categoryError: string;
-    dateLabel: string;
-    dateError: string;
-  };
   colors: {
     primary: string;
     secondary: string;
@@ -49,39 +27,7 @@ export const THEMES: Record<string, Theme> = {
     id: 'harry-potter',
     name: 'Harry Potter',
     emoji: '⚡',
-    appTitle: '⚡ Gringotts Expense Ledger ⚡',
-    appSubtitle: 'Track your galleons, sickles, and knuts with magical precision',
     currency: 'G',
-    categories: [
-      '🍖 Food & Butterbeer',
-      '🚂 Magical Transportation',
-      '📚 Books & Supplies',
-      '🎭 Entertainment & Quidditch',
-      '⚡ Magical Services',
-      '🏥 Healing & Potions',
-      '✈️ Magical Travel',
-      '🎓 Magical Education',
-      '🔮 Other Magical Items'
-    ],
-    labels: {
-      formTitle: '📜 Record New Magical Expense',
-      dashboardTitle: '🏦 Gringotts Vault Overview',
-      listTitle: '📋 Recent Magical Transactions',
-      amountLabel: 'Amount (Galleons)',
-      addButton: '⚡ Add to Ledger',
-      clearAllButton: '🗑️ Clear All',
-      clearAllConfirm: '🧙‍♂️ Are you sure you want to clear all magical transactions? This powerful spell cannot be undone! ⚡',
-      deleteButton: 'Banish this expense',
-      descriptionLabel: '✨ Description of Expense',
-      descriptionPlaceholder: 'Enter magical expense description...',
-      descriptionError: '🚫 Description is required, young wizard!',
-      amountError: '🚫 Valid amount is required for Gringotts records!',
-      categoryLabel: '🏪 Magical Category',
-      categoryPlaceholder: 'Select a magical category...',
-      categoryError: '🚫 Category selection is required by Ministry law!',
-      dateLabel: '📅 Date of Transaction',
-      dateError: '🚫 Date is required for magical records!'
-    },
     colors: {
       primary: '#ffd700',
       secondary: '#8b4513',
@@ -104,39 +50,7 @@ export const THEMES: Record<string, Theme> = {
     id: 'star-wars',
     name: 'Star Wars',
     emoji: '🌟',
-    appTitle: '🌟 Galactic Credits Tracker 🌟',
-    appSubtitle: 'May the funds be with you - Track your galactic expenses',
     currency: 'CR',
-    categories: [
-      '🍖 Cantina & Food',
-      '🚀 Spaceship Transport',
-      '🔫 Weapons & Gear',
-      '🎮 Holonet Entertainment',
-      '⚙️ Droid Services',
-      '💊 Medical & Bacta',
-      '🌌 Hyperspace Travel',
-      '📚 Jedi Training',
-      '🔧 Other Equipment'
-    ],
-    labels: {
-      formTitle: '🚀 Record New Galactic Expense',
-      dashboardTitle: '🌌 Empire Credits Overview',
-      listTitle: '📊 Recent Galactic Transactions',
-      amountLabel: 'Amount (Credits)',
-      addButton: '🌟 Add to Database',
-      clearAllButton: '🗑️ Clear All',
-      clearAllConfirm: 'Are you sure you want to clear all galactic transactions? This action cannot be undone!',
-      deleteButton: 'Delete this expense',
-      descriptionLabel: '📝 Description of Expense',
-      descriptionPlaceholder: 'Enter galactic expense description...',
-      descriptionError: 'Description is required for Empire records!',
-      amountError: 'Valid credit amount is required!',
-      categoryLabel: '🏪 Galactic Category',
-      categoryPlaceholder: 'Select a galactic category...',
-      categoryError: 'Category selection is required!',
-      dateLabel: '📅 Date of Transaction',
-      dateError: 'Date is required for database!'
-    },
     colors: {
       primary: '#ffe81f',
       secondary: '#000000',
@@ -159,39 +73,7 @@ export const THEMES: Record<string, Theme> = {
     id: 'peppa-pig',
     name: 'Peppa Pig',
     emoji: '🐷',
-    appTitle: '🐷 Peppa\'s Muddy Puddle Bank 🐷',
-    appSubtitle: 'Oink oink! Track your pocket money like Peppa',
     currency: '£',
-    categories: [
-      '🍰 Snacks & Treats',
-      '🚌 Transport Fun',
-      '🧸 Toys & Games',
-      '🎪 Fun Activities',
-      '🏥 Growing Up Care',
-      '💊 Healthy Things',
-      '✈️ Holiday Adventures',
-      '📚 Learning Time',
-      '🎁 Other Goodies'
-    ],
-    labels: {
-      formTitle: '🎈 Record New Fun Expense',
-      dashboardTitle: '🏠 Peppa\'s Money Overview',
-      listTitle: '📝 Recent Fun Expenses',
-      amountLabel: 'Amount (Pounds)',
-      addButton: '🐷 Add to Piggy Bank',
-      clearAllButton: '🗑️ Clear All',
-      clearAllConfirm: 'Are you sure you want to clear all your pocket money records?',
-      deleteButton: 'Remove this expense',
-      descriptionLabel: '📝 What did you buy?',
-      descriptionPlaceholder: 'Tell us about your fun expense...',
-      descriptionError: 'You need to tell us what you bought!',
-      amountError: 'How much did it cost? Please enter an amount!',
-      categoryLabel: '🎪 Fun Category',
-      categoryPlaceholder: 'What kind of fun was it?',
-      categoryError: 'Please pick a category for your expense!',
-      dateLabel: '📅 When did you buy it?',
-      dateError: 'When did this happen? Please pick a date!'
-    },
     colors: {
       primary: '#ff69b4',
       secondary: '#98fb98',
@@ -214,39 +96,7 @@ export const THEMES: Record<string, Theme> = {
     id: 'simpsons',
     name: 'The Simpsons',
     emoji: '🍩',
-    appTitle: '🍩 Springfield Expense-o-Matic 🍩',
-    appSubtitle: 'D\'oh! Keep track of your money like Homer with donuts',
     currency: '$',
-    categories: [
-      '🍩 Food & Duff Beer',
-      '🚗 Car & Transport',
-      '📺 Entertainment',
-      '🎪 Krusty Land Fun',
-      '⚡ Nuclear Plant',
-      '🏥 Dr. Hibbert Care',
-      '✈️ Family Vacations',
-      '📚 School Supplies',
-      '🔧 Other Springfield'
-    ],
-    labels: {
-      formTitle: '🍩 Record New Springfield Expense',
-      dashboardTitle: '🏠 Homer\'s Money Overview',
-      listTitle: '📊 Recent Springfield Expenses',
-      amountLabel: 'Amount (Dollars)',
-      addButton: '📝 Add to List',
-      clearAllButton: '🗑️ Clear All',
-      clearAllConfirm: 'D\'oh! Are you sure you want to clear all expenses?',
-      deleteButton: 'Delete this expense',
-      descriptionLabel: '📝 What did you spend on?',
-      descriptionPlaceholder: 'Enter your Springfield expense...',
-      descriptionError: 'D\'oh! You need to describe what you bought!',
-      amountError: 'D\'oh! How much did it cost? Enter a valid amount!',
-      categoryLabel: '🏪 Springfield Category',
-      categoryPlaceholder: 'Pick a category, dude...',
-      categoryError: 'D\'oh! You gotta pick a category!',
-      dateLabel: '📅 When did you buy it?',
-      dateError: 'D\'oh! When did this happen? Pick a date!'
-    },
     colors: {
       primary: '#ffd700',
       secondary: '#87ceeb',
@@ -269,39 +119,7 @@ export const THEMES: Record<string, Theme> = {
     id: 'barbie',
     name: 'Barbie',
     emoji: '💖',
-    appTitle: '💖 Barbie\'s Fabulous Finance 💖',
-    appSubtitle: 'Life in plastic, it\'s fantastic! Track your glamorous expenses',
     currency: '💎',
-    categories: [
-      '💄 Beauty & Fashion',
-      '🚗 Pink Transportation',
-      '👗 Shopping Sprees',
-      '🎉 Fabulous Events',
-      '💅 Self Care',
-      '💊 Wellness & Health',
-      '✈️ Dream Vacations',
-      '📚 Girl Power Learning',
-      '💖 Other Fabulous'
-    ],
-    labels: {
-      formTitle: '💖 Record New Fabulous Expense',
-      dashboardTitle: '✨ Barbie\'s Fab Financial Overview',
-      listTitle: '💅 Recent Fabulous Expenses',
-      amountLabel: 'Amount (Gems)',
-      addButton: '💖 Add to Collection',
-      clearAllButton: '🗑️ Clear All',
-      clearAllConfirm: 'Are you sure you want to clear all your fabulous expenses?',
-      deleteButton: 'Remove this expense',
-      descriptionLabel: '💅 What fabulous thing did you buy?',
-      descriptionPlaceholder: 'Describe your fabulous expense...',
-      descriptionError: 'Girl, you need to tell us what you bought!',
-      amountError: 'How much did this fabulousness cost? Enter an amount!',
-      categoryLabel: '✨ Fabulous Category',
-      categoryPlaceholder: 'What kind of fabulousness was this?',
-      categoryError: 'Pick a fabulous category, girl!',
-      dateLabel: '📅 When did you get it?',
-      dateError: 'When did this fabulous purchase happen? Pick a date!'
-    },
     colors: {
       primary: '#ff1493',
       secondary: '#ff69b4',

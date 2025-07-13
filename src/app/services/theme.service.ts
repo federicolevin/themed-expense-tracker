@@ -63,9 +63,6 @@ export class ThemeService {
     root.style.setProperty('--theme-font-primary', theme.fonts.primary);
     root.style.setProperty('--theme-font-decorative', theme.fonts.decorative);
     
-    // Update document title
-    document.title = theme.appTitle;
-    
     // Apply theme-specific body class
     document.body.className = document.body.className.replace(/theme-\w+/g, '');
     document.body.classList.add(`theme-${theme.id}`);

@@ -1,8 +1,9 @@
-import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy, computed } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ExpenseService } from '../services/expense.service';
 import { ThemeService } from '../services/theme.service';
+import { LanguageService } from '../services/language.service';
 
 @Component({
   selector: 'app-expense-form',
@@ -10,24 +11,24 @@ import { ThemeService } from '../services/theme.service';
   imports: [ReactiveFormsModule, CommonModule],
   template: `
     <div class="form-container magical-card">
-      <h2>{{ themeService.currentTheme().labels.formTitle }}</h2>
+      <h2>{{ content().formTitle }}</h2>
       <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-          <label for="description">{{ themeService.currentTheme().labels.descriptionLabel }}</label>
+          <label for="description">{{ content().descriptionLabel }}</label>
           <input
             id="description"
             type="text"
             formControlName="description"
-            [placeholder]="themeService.currentTheme().labels.descriptionPlaceholder"
+            [placeholder]="content().descriptionPlaceholder"
             [class.error]="descriptionControl.invalid && descriptionControl.touched"
           />
           @if (descriptionControl.invalid && descriptionControl.touched) {
-            <span class="error-message">{{ themeService.currentTheme().labels.descriptionError }}</span>
+            <span class="error-message">{{ content().descriptionError }}</span>
           }
         </div>
 
         <div class="form-group">
-          <label for="amount">💰 {{ themeService.currentTheme().labels.amountLabel }}</label>
+          <label for="amount">💰 {{ content().amountLabel }}</label>
           <input
             id="amount"
             type="number"
@@ -37,29 +38,29 @@ import { ThemeService } from '../services/theme.service';
             [class.error]="amountControl.invalid && amountControl.touched"
           />
           @if (amountControl.invalid && amountControl.touched) {
-            <span class="error-message">{{ themeService.currentTheme().labels.amountError }}</span>
+            <span class="error-message">{{ content().amountError }}</span>
           }
         </div>
 
         <div class="form-group">
-          <label for="category">{{ themeService.currentTheme().labels.categoryLabel }}</label>
+          <label for="category">{{ content().categoryLabel }}</label>
           <select
             id="category"
             formControlName="category"
             [class.error]="categoryControl.invalid && categoryControl.touched"
           >
-            <option value="">{{ themeService.currentTheme().labels.categoryPlaceholder }}</option>
-            @for (category of categories().categories; track category) {
+            <option value="">{{ content().categoryPlaceholder }}</option>
+            @for (category of content().categories; track category) {
               <option [value]="category">{{ category }}</option>
             }
           </select>
           @if (categoryControl.invalid && categoryControl.touched) {
-            <span class="error-message">{{ themeService.currentTheme().labels.categoryError }}</span>
+            <span class="error-message">{{ content().categoryError }}</span>
           }
         </div>
 
         <div class="form-group">
-          <label for="date">{{ themeService.currentTheme().labels.dateLabel }}</label>
+          <label for="date">{{ content().dateLabel }}</label>
           <input
             id="date"
             type="date"
@@ -67,7 +68,7 @@ import { ThemeService } from '../services/theme.service';
             [class.error]="dateControl.invalid && dateControl.touched"
           />
           @if (dateControl.invalid && dateControl.touched) {
-            <span class="error-message">{{ themeService.currentTheme().labels.dateError }}</span>
+            <span class="error-message">{{ content().dateError }}</span>
           }
         </div>
 
@@ -76,7 +77,7 @@ import { ThemeService } from '../services/theme.service';
           [disabled]="expenseForm.invalid || isSubmitting()"
           class="submit-btn magical-button"
         >
-          {{ isSubmitting() ? '🪄 Casting spell...' : themeService.currentTheme().labels.addButton }}
+          {{ isSubmitting() ? '🪄 Processing...' : content().addButton }}
         </button>
       </form>
     </div>
@@ -227,8 +228,14 @@ export class ExpenseFormComponent {
   private fb = inject(FormBuilder);
   private expenseService = inject(ExpenseService);
   themeService = inject(ThemeService);
+  languageService = inject(LanguageService);
 
-  categories = this.themeService.currentTheme;
+  // Computed property for localized content
+  content = computed(() => {
+    const themeId = this.themeService.currentTheme().id;
+    return this.languageService.getThemeTranslations(themeId);
+  });
+
   isSubmitting = signal(false);
 
   expenseForm = this.fb.group({

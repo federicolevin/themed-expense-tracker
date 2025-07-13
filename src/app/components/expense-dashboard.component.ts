@@ -1,7 +1,8 @@
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ExpenseService } from '../services/expense.service';
 import { ThemeService } from '../services/theme.service';
+import { LanguageService } from '../services/language.service';
 
 @Component({
   selector: 'app-expense-dashboard',
@@ -10,7 +11,7 @@ import { ThemeService } from '../services/theme.service';
   template: `
     <div class="dashboard magical-card">
       <div class="dashboard-header">
-        <h2>{{ themeService.currentTheme().labels.dashboardTitle }}</h2>
+        <h2>{{ content().dashboardTitle }}</h2>
       </div>
 
       <div class="stats-grid">
@@ -303,6 +304,13 @@ import { ThemeService } from '../services/theme.service';
 export class ExpenseDashboardComponent {
   private expenseService = inject(ExpenseService);
   themeService = inject(ThemeService);
+  languageService = inject(LanguageService);
+
+  // Computed property for localized content
+  content = computed(() => {
+    const themeId = this.themeService.currentTheme().id;
+    return this.languageService.getThemeTranslations(themeId);
+  });
 
   expenses = this.expenseService.getExpenses();
   totalExpenses = this.expenseService.totalExpenses;

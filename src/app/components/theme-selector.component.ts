@@ -1,6 +1,7 @@
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeService } from '../services/theme.service';
+import { LanguageService } from '../services/language.service';
 import { ThemeId } from '../models/theme.model';
 
 @Component({
@@ -9,14 +10,14 @@ import { ThemeId } from '../models/theme.model';
   imports: [CommonModule],
   template: `
     <div class="theme-selector">
-      <h3>🎨 Choose Your Theme</h3>
+      <h3 class="selector-title">{{ languageService.getUITranslations().themeSelector.title }}</h3>
       <div class="theme-grid">
         @for (theme of themeService.availableThemes(); track theme.id) {
           <button
             class="theme-option"
             [class.active]="theme.id === themeService.currentTheme().id"
             (click)="selectTheme(theme.id)"
-            [title]="'Switch to ' + theme.name + ' theme'"
+            [title]="languageService.getUITranslations().themeSelector.tooltip"
           >
             <div class="theme-preview" [style]="getThemePreviewStyle(theme.id)">
               <span class="theme-emoji">{{ theme.emoji }}</span>
@@ -45,6 +46,16 @@ import { ThemeId } from '../models/theme.model';
       font-family: var(--theme-font-decorative, 'Cinzel Decorative', serif);
       text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
       text-align: center;
+    }
+
+    .selector-title {
+      color: var(--theme-primary);
+      font-family: var(--theme-font-decorative);
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+      text-align: center;
+      text-shadow: 0 0 10px var(--theme-primary);
+      font-weight: 700;
     }
 
     .theme-grid {
@@ -158,6 +169,7 @@ import { ThemeId } from '../models/theme.model';
 })
 export class ThemeSelectorComponent {
   themeService = inject(ThemeService);
+  languageService = inject(LanguageService);
 
   selectTheme(themeId: ThemeId): void {
     this.themeService.setTheme(themeId);

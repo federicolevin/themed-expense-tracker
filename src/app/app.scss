@@ -110,13 +110,16 @@ body::before {
   grid-template-rows: auto auto auto auto;
   gap: 24px;
   grid-template-areas:
-    "theme theme"
+    "selectors selectors"
     "form dashboard"
     "list list";
 }
 
-.theme-section {
-  grid-area: theme;
+.selectors-section {
+  grid-area: selectors;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
 }
 
 .form-section {
@@ -184,10 +187,15 @@ body::before {
   .content-grid {
     grid-template-columns: 1fr;
     grid-template-areas:
-      "theme"
+      "selectors"
       "form"
       "dashboard"
       "list";
+  }
+
+  .selectors-section {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 }
 

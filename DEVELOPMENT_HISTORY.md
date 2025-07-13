@@ -555,6 +555,114 @@ src/app/
 
 ---
 
+### July 13, 2025 - Internationalization (i18n) Implementation
+**Enhancement Request:** Add language selection functionality between English and Spanish
+
+**Major Features Added:**
+1. **Language System Architecture:**
+   - Created comprehensive language model (`language.model.ts`) with interface for all translations
+   - Implemented language service (`language.service.ts`) with signal-based state management
+   - Persistent language selection using localStorage with browser language detection
+   - Automatic HTML lang attribute updates
+
+2. **Bilingual Support Created:**
+   - **English:** Complete translations for all themes and UI elements
+   - **Spanish (Español):** Full translation coverage with culturally appropriate language for each theme
+   - Theme-specific translations that maintain the personality of each theme in both languages
+
+3. **Language Service Features:**
+   - Signal-based reactive language management  
+   - Automatic browser language detection as default
+   - Theme-specific translation retrieval method
+   - Persistent storage of user language preference
+   - Computed properties for efficient translation access
+
+4. **Language Selector Component:**
+   - Visual language picker with flags and native names
+   - Grid layout showing available languages (🇺🇸 English, 🇪🇸 Español)
+   - Active language highlighting with animations
+   - Responsive design for mobile devices
+
+5. **Complete Translation Coverage:**
+   - **App Titles & Subtitles:** Theme-specific translated titles for all 5 themes
+   - **Form Labels:** All input labels, placeholders, and validation messages
+   - **UI Elements:** Buttons, confirmations, tooltips, and navigation
+   - **Categories:** Localized expense categories for each theme
+   - **Error Messages:** Theme-appropriate error messages in both languages
+
+**Technical Implementation:**
+
+1. **Language Model Structure:**
+```typescript
+export interface Language {
+  id: string;
+  name: string;
+  nativeName: string;
+  flag: string;
+  translations: {
+    appTitle: { harryPotter: string; starWars: string; ... };
+    // ... comprehensive translation structure
+  };
+}
+```
+
+2. **Component Architecture Updates:**
+   - All components now use `LanguageService.getThemeTranslations()`
+   - Removed hardcoded labels from theme model
+   - Added computed properties for reactive translation updates
+   - Integrated language service into existing components
+
+3. **Dynamic Content System:**
+   - Theme-specific translations accessed via computed properties
+   - Automatic updates when language or theme changes
+   - Seamless switching without page reload
+   - Maintains all existing functionality in both languages
+
+**File Structure Changes:**
+```
+src/app/
+├── models/
+│   ├── expense.model.ts           # Unchanged
+│   ├── theme.model.ts             # Simplified (removed labels)
+│   └── language.model.ts          # NEW: Language definitions
+├── services/
+│   ├── expense.service.ts         # Unchanged
+│   ├── theme.service.ts           # Simplified (removed title updates)
+│   └── language.service.ts        # NEW: Language management
+├── components/
+│   ├── expense-form.component.ts      # Updated with language service
+│   ├── expense-list.component.ts      # Updated with translations
+│   ├── expense-dashboard.component.ts # Updated with language support
+│   ├── theme-selector.component.ts   # Updated with language service
+│   └── language-selector.component.ts # NEW: Language selection UI
+├── app.ts                         # Updated with language service
+├── app.html                       # Updated with language selector
+└── app.scss                       # Updated layout for selectors
+```
+
+**Spanish Translation Examples:**
+- Harry Potter: "⚡ Libro de Gastos de Gringotts ⚡"
+- Star Wars: "🌟 Rastreador de Créditos Galácticos 🌟"
+- Peppa Pig: "🐷 Banco de Charcos de Peppa 🐷"
+- Categories translated with cultural context maintained
+- Error messages preserve theme personality in Spanish
+
+**Performance Optimizations:**
+- Computed signals for efficient translation updates
+- Minimal re-rendering during language switches
+- Browser language detection for optimal UX
+- Persistent storage prevents language resets
+
+**Quality Improvements:**
+- Comprehensive translation coverage for all UI elements
+- Culturally appropriate translations for each theme
+- Maintained theme personality across languages
+- Seamless user experience in both languages
+
+**Result:** A fully internationalized expense tracker supporting English and Spanish with theme-specific translations. Users can switch languages instantly while maintaining the full immersive experience of each theme, with all content appropriately localized including categories, error messages, and theme-specific terminology.
+
+---
+
 **End of Development History**
-**Status:** ✅ Complete and Functional with Multi-Theme Support
+**Status:** ✅ Complete and Functional with Multi-Theme & Multi-Language Support
 **URL:** http://localhost:4200/

@@ -1,7 +1,8 @@
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ExpenseService } from '../services/expense.service';
 import { ThemeService } from '../services/theme.service';
+import { LanguageService } from '../services/language.service';
 
 @Component({
   selector: 'app-expense-list',
@@ -10,7 +11,7 @@ import { ThemeService } from '../services/theme.service';
   template: `
     <div class="list-container magical-card">
       <div class="list-header">
-        <h2>{{ themeService.currentTheme().labels.listTitle }}</h2>
+        <h2>{{ content().listTitle }}</h2>
         <div class="header-actions">
           <span class="expense-count">{{ expenses().length }} transactions</span>
           @if (expenses().length > 0) {
@@ -19,7 +20,7 @@ import { ThemeService } from '../services/theme.service';
               (click)="clearAllExpenses()"
               title="Clear all expenses"
             >
-              {{ themeService.currentTheme().labels.clearAllButton }}
+              {{ content().clearAllButton }}
             </button>
           }
         </div>
@@ -46,7 +47,7 @@ import { ThemeService } from '../services/theme.service';
               <button 
                 class="delete-btn"
                 (click)="deleteExpense(expense.id)"
-                [title]="themeService.currentTheme().labels.deleteButton"
+                [title]="content().deleteButton"
               >
                 ⚡
               </button>
@@ -268,6 +269,13 @@ import { ThemeService } from '../services/theme.service';
 export class ExpenseListComponent {
   private expenseService = inject(ExpenseService);
   themeService = inject(ThemeService);
+  languageService = inject(LanguageService);
+
+  // Computed property for localized content
+  content = computed(() => {
+    const themeId = this.themeService.currentTheme().id;
+    return this.languageService.getThemeTranslations(themeId);
+  });
 
   expenses = this.expenseService.getExpenses();
 
@@ -276,7 +284,7 @@ export class ExpenseListComponent {
   }
 
   clearAllExpenses() {
-    if (confirm(this.themeService.currentTheme().labels.clearAllConfirm)) {
+    if (confirm(this.content().clearAllConfirm)) {
       this.expenseService.clearAllExpenses();
     }
   }
