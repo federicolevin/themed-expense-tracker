@@ -10,7 +10,18 @@ import { ExpenseService } from '../services/expense.service';
     <div class="list-container">
       <div class="list-header">
         <h2>Recent Expenses</h2>
-        <span class="expense-count">{{ expenses().length }} expenses</span>
+        <div class="header-actions">
+          <span class="expense-count">{{ expenses().length }} expenses</span>
+          @if (expenses().length > 0) {
+            <button 
+              class="clear-all-btn"
+              (click)="clearAllExpenses()"
+              title="Clear all expenses"
+            >
+              Clear All
+            </button>
+          }
+        </div>
       </div>
 
       @if (expenses().length === 0) {
@@ -59,6 +70,12 @@ import { ExpenseService } from '../services/expense.service';
       margin-bottom: 20px;
     }
 
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
     h2 {
       margin: 0;
       color: #2c3e50;
@@ -70,6 +87,23 @@ import { ExpenseService } from '../services/expense.service';
       color: #7f8c8d;
       font-size: 0.9rem;
       font-weight: 500;
+    }
+
+    .clear-all-btn {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .clear-all-btn:hover {
+      background: #c0392b;
+      transform: translateY(-1px);
     }
 
     .empty-state {
@@ -164,6 +198,17 @@ import { ExpenseService } from '../services/expense.service';
     }
 
     @media (max-width: 768px) {
+      .list-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .header-actions {
+        align-self: stretch;
+        justify-content: space-between;
+      }
+
       .expense-item {
         flex-direction: column;
         align-items: flex-start;
@@ -185,6 +230,12 @@ export class ExpenseListComponent {
 
   deleteExpense(id: string) {
     this.expenseService.deleteExpense(id);
+  }
+
+  clearAllExpenses() {
+    if (confirm('Are you sure you want to delete all expenses? This action cannot be undone.')) {
+      this.expenseService.clearAllExpenses();
+    }
   }
 
   formatDate(date: Date): string {

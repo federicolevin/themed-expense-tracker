@@ -5,7 +5,8 @@ import { Expense } from '../models/expense.model';
   providedIn: 'root'
 })
 export class ExpenseService {
-  private expenses = signal<Expense[]>([]);
+  private readonly STORAGE_KEY = 'expense-tracker-expenses';
+  private expenses = signal<Expense[]>(this.loadExpensesFromStorage());
 
   // Computed values for dashboard
   totalExpenses = computed(() => 
@@ -36,18 +37,58 @@ export class ExpenseService {
       id: crypto.randomUUID()
     };
     
-    this.expenses.update(expenses => [...expenses, newExpense]);
+    this.expenses.update(expenses => {
+      const updatedExpenses = [...expenses, newExpense];
+      this.saveExpensesToStorage(updatedExpenses);
+      return updatedExpenses;
+    });
   }
 
   deleteExpense(id: string) {
-    this.expenses.update(expenses => expenses.filter(expense => expense.id !== id));
+    this.expenses.update(expenses => {
+      const updatedExpenses = expenses.filter(expense => expense.id !== id);
+      this.saveExpensesToStorage(updatedExpenses);
+      return updatedExpenses;
+    });
   }
 
   updateExpense(id: string, updates: Partial<Omit<Expense, 'id'>>) {
-    this.expenses.update(expenses =>
-      expenses.map(expense =>
+    this.expenses.update(expenses => {
+      const updatedExpenses = expenses.map(expense =>
         expense.id === id ? { ...expense, ...updates } : expense
-      )
-    );
+      );
+      this.saveExpensesToStorage(updatedExpenses);
+      return updatedExpenses;
+    });
+  }
+
+  private loadExpensesFromStorage(): Expense[] {
+    try {
+      const stored = localStorage.getItem(this.STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        // Convert date strings back to Date objects
+        return parsed.map((expense: any) => ({
+          ...expense,
+          date: new Date(expense.date)
+        }));
+      }
+    } catch (error) {
+      console.warn('Error loading expenses from storage:', error);
+    }
+    return [];
+  }
+
+  private saveExpensesToStorage(expenses: Expense[]): void {
+    try {
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(expenses));
+    } catch (error) {
+      console.warn('Error saving expenses to storage:', error);
+    }
+  }
+
+  clearAllExpenses(): void {
+    this.expenses.set([]);
+    this.saveExpensesToStorage([]);
   }
 }
