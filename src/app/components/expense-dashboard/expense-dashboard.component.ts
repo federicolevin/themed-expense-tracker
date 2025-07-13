@@ -27,16 +27,10 @@ export class ExpenseDashboardComponent {
   expensesByCategory = this.expenseService.expensesByCategory;
   recentExpenses = this.expenseService.recentExpenses;
 
-  getAverageExpense(): number {
-    const total = this.totalExpenses();
-    const count = this.expenses().length;
-    return count > 0 ? total / count : 0;
-  }
-
   getCategoriesSorted() {
     const categories = this.expensesByCategory();
     const total = this.totalExpenses();
-    
+
     return Object.entries(categories)
       .map(([category, amount]) => ({
         category,

@@ -15,14 +15,6 @@
           <div class="stat-label">Total Transactions</div>
           <div class="stat-value">{{ expenses().length }}</div>
         </div>
-
-        @if (expenses().length > 0) {
-          <div class="stat-card average">
-            <div class="stat-icon">⚡</div>
-            <div class="stat-label">Average per Transaction</div>
-            <div class="stat-value">{{ getAverageExpense().toFixed(2) }}{{ themeService.currentTheme().currency }}</div>
-          </div>
-        }
       </div>
 
       @if (getCategoriesSorted().length > 0) {
