@@ -2,7 +2,7 @@ import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/cor
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ExpenseService } from '../services/expense.service';
-import { EXPENSE_CATEGORIES } from '../models/expense.model';
+import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-expense-form',
@@ -10,24 +10,24 @@ import { EXPENSE_CATEGORIES } from '../models/expense.model';
   imports: [ReactiveFormsModule, CommonModule],
   template: `
     <div class="form-container magical-card">
-      <h2>📜 Record New Magical Expense</h2>
+      <h2>{{ themeService.currentTheme().labels.formTitle }}</h2>
       <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-          <label for="description">✨ Description of Expense</label>
+          <label for="description">{{ themeService.currentTheme().labels.descriptionLabel }}</label>
           <input
             id="description"
             type="text"
             formControlName="description"
-            placeholder="Enter magical expense description..."
+            [placeholder]="themeService.currentTheme().labels.descriptionPlaceholder"
             [class.error]="descriptionControl.invalid && descriptionControl.touched"
           />
           @if (descriptionControl.invalid && descriptionControl.touched) {
-            <span class="error-message">🚫 Description is required, young wizard!</span>
+            <span class="error-message">{{ themeService.currentTheme().labels.descriptionError }}</span>
           }
         </div>
 
         <div class="form-group">
-          <label for="amount">💰 Amount (Galleons)</label>
+          <label for="amount">💰 {{ themeService.currentTheme().labels.amountLabel }}</label>
           <input
             id="amount"
             type="number"
@@ -37,29 +37,29 @@ import { EXPENSE_CATEGORIES } from '../models/expense.model';
             [class.error]="amountControl.invalid && amountControl.touched"
           />
           @if (amountControl.invalid && amountControl.touched) {
-            <span class="error-message">🚫 Valid amount is required for Gringotts records!</span>
+            <span class="error-message">{{ themeService.currentTheme().labels.amountError }}</span>
           }
         </div>
 
         <div class="form-group">
-          <label for="category">🏪 Magical Category</label>
+          <label for="category">{{ themeService.currentTheme().labels.categoryLabel }}</label>
           <select
             id="category"
             formControlName="category"
             [class.error]="categoryControl.invalid && categoryControl.touched"
           >
-            <option value="">Select a magical category...</option>
-            @for (category of categories; track category) {
+            <option value="">{{ themeService.currentTheme().labels.categoryPlaceholder }}</option>
+            @for (category of categories().categories; track category) {
               <option [value]="category">{{ category }}</option>
             }
           </select>
           @if (categoryControl.invalid && categoryControl.touched) {
-            <span class="error-message">🚫 Category selection is required by Ministry law!</span>
+            <span class="error-message">{{ themeService.currentTheme().labels.categoryError }}</span>
           }
         </div>
 
         <div class="form-group">
-          <label for="date">📅 Date of Transaction</label>
+          <label for="date">{{ themeService.currentTheme().labels.dateLabel }}</label>
           <input
             id="date"
             type="date"
@@ -67,7 +67,7 @@ import { EXPENSE_CATEGORIES } from '../models/expense.model';
             [class.error]="dateControl.invalid && dateControl.touched"
           />
           @if (dateControl.invalid && dateControl.touched) {
-            <span class="error-message">🚫 Date is required for magical records!</span>
+            <span class="error-message">{{ themeService.currentTheme().labels.dateError }}</span>
           }
         </div>
 
@@ -76,7 +76,7 @@ import { EXPENSE_CATEGORIES } from '../models/expense.model';
           [disabled]="expenseForm.invalid || isSubmitting()"
           class="submit-btn magical-button"
         >
-          {{ isSubmitting() ? '🪄 Casting spell...' : '⚡ Add to Ledger' }}
+          {{ isSubmitting() ? '🪄 Casting spell...' : themeService.currentTheme().labels.addButton }}
         </button>
       </form>
     </div>
@@ -226,8 +226,9 @@ import { EXPENSE_CATEGORIES } from '../models/expense.model';
 export class ExpenseFormComponent {
   private fb = inject(FormBuilder);
   private expenseService = inject(ExpenseService);
+  themeService = inject(ThemeService);
 
-  categories = EXPENSE_CATEGORIES;
+  categories = this.themeService.currentTheme;
   isSubmitting = signal(false);
 
   expenseForm = this.fb.group({

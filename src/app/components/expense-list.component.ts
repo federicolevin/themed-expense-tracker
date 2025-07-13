@@ -1,6 +1,7 @@
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ExpenseService } from '../services/expense.service';
+import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-expense-list',
@@ -9,7 +10,7 @@ import { ExpenseService } from '../services/expense.service';
   template: `
     <div class="list-container magical-card">
       <div class="list-header">
-        <h2>📋 Recent Magical Transactions</h2>
+        <h2>{{ themeService.currentTheme().labels.listTitle }}</h2>
         <div class="header-actions">
           <span class="expense-count">{{ expenses().length }} transactions</span>
           @if (expenses().length > 0) {
@@ -18,7 +19,7 @@ import { ExpenseService } from '../services/expense.service';
               (click)="clearAllExpenses()"
               title="Clear all expenses"
             >
-              🗑️ Clear All
+              {{ themeService.currentTheme().labels.clearAllButton }}
             </button>
           }
         </div>
@@ -27,8 +28,8 @@ import { ExpenseService } from '../services/expense.service';
       @if (expenses().length === 0) {
         <div class="empty-state">
           <div class="empty-icon">🦉</div>
-          <p>No magical transactions recorded yet.</p>
-          <p>Cast your first expense spell above to begin your ledger!</p>
+          <p>No transactions recorded yet.</p>
+          <p>Add your first expense above to begin tracking!</p>
         </div>
       } @else {
         <div class="expense-list">
@@ -39,13 +40,13 @@ import { ExpenseService } from '../services/expense.service';
                 <div class="expense-category">{{ expense.category }}</div>
               </div>
               <div class="expense-details">
-                <div class="expense-amount">{{ expense.amount.toFixed(2) }}G</div>
+                <div class="expense-amount">{{ expense.amount.toFixed(2) }}{{ themeService.currentTheme().currency }}</div>
                 <div class="expense-date">{{ formatDate(expense.date) }}</div>
               </div>
               <button 
                 class="delete-btn"
                 (click)="deleteExpense(expense.id)"
-                title="Banish this expense"
+                [title]="themeService.currentTheme().labels.deleteButton"
               >
                 ⚡
               </button>
@@ -266,6 +267,7 @@ import { ExpenseService } from '../services/expense.service';
 })
 export class ExpenseListComponent {
   private expenseService = inject(ExpenseService);
+  themeService = inject(ThemeService);
 
   expenses = this.expenseService.getExpenses();
 
@@ -274,7 +276,7 @@ export class ExpenseListComponent {
   }
 
   clearAllExpenses() {
-    if (confirm('🧙‍♂️ Are you sure you want to clear all magical transactions? This powerful spell cannot be undone! ⚡')) {
+    if (confirm(this.themeService.currentTheme().labels.clearAllConfirm)) {
       this.expenseService.clearAllExpenses();
     }
   }

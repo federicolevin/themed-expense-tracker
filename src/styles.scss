@@ -1,6 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
 
-/* Global Harry Potter themed styles */
+/* Global themed styles with CSS custom properties */
+
+:root {
+  /* Default Harry Potter theme colors */
+  --theme-primary: #ffd700;
+  --theme-secondary: #8b4513;
+  --theme-accent: #daa520;
+  --theme-background: linear-gradient(135deg, #0f0f23 0%, #2d1b69 50%, #0f0f23 100%);
+  --theme-card-background: linear-gradient(135deg, rgba(25, 25, 112, 0.95), rgba(72, 61, 139, 0.95));
+  --theme-text-primary: #f4f4f4;
+  --theme-text-secondary: #e6e6fa;
+  --theme-border: #8b4513;
+  --theme-success: #228b22;
+  --theme-warning: #daa520;
+  --theme-danger: #dc143c;
+  --theme-font-primary: 'Cinzel', 'Times New Roman', serif;
+  --theme-font-decorative: 'Cinzel Decorative', serif;
+}
+
+/* Load default Harry Potter fonts */
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cinzel+Decorative:wght@700&display=swap');
 
 * {
@@ -10,11 +29,12 @@
 }
 
 body {
-  font-family: 'Cinzel', 'Times New Roman', serif;
-  background: linear-gradient(135deg, #0f0f23 0%, #2d1b69 50%, #0f0f23 100%);
+  font-family: var(--theme-font-primary);
+  background: var(--theme-background);
   min-height: 100vh;
-  color: #f4f4f4;
+  color: var(--theme-text-primary);
   line-height: 1.6;
+  transition: all 0.3s ease;
 }
 
 /* Magical scrolling */
@@ -22,45 +42,46 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Harry Potter themed focus styles */
+/* Themed focus styles */
 button:focus,
 input:focus,
 select:focus {
-  outline: 2px solid #ffd700;
+  outline: 2px solid var(--theme-primary);
   outline-offset: 2px;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  box-shadow: 0 0 10px var(--theme-primary);
 }
 
-/* Custom magical scrollbar */
+/* Custom themed scrollbar */
 ::-webkit-scrollbar {
   width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a2e;
+  background: rgba(0, 0, 0, 0.3);
   border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #8b4513, #daa520);
+  background: linear-gradient(135deg, var(--theme-secondary), var(--theme-primary));
   border-radius: 6px;
-  border: 2px solid #1a1a2e;
+  border: 2px solid rgba(0, 0, 0, 0.3);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #daa520, #ffd700);
+  background: linear-gradient(135deg, var(--theme-primary), var(--theme-accent));
 }
 
 /* Magical card base styles */
 .magical-card {
-  background: linear-gradient(135deg, rgba(25, 25, 112, 0.9), rgba(72, 61, 139, 0.9));
-  border: 2px solid #8b4513;
+  background: var(--theme-card-background);
+  border: 2px solid var(--theme-border);
   border-radius: 15px;
   box-shadow: 
     0 8px 32px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 215, 0, 0.2);
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   position: relative;
+  transition: all 0.3s ease;
 }
 
 .magical-card::before {
@@ -70,10 +91,11 @@ select:focus {
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: linear-gradient(45deg, #ffd700, #daa520, #8b4513, #ffd700);
+  background: linear-gradient(45deg, var(--theme-primary), var(--theme-accent), var(--theme-secondary), var(--theme-primary));
   border-radius: 15px;
   z-index: -1;
   animation: borderGlow 3s linear infinite;
+  background-size: 400% 400%;
 }
 
 @keyframes borderGlow {

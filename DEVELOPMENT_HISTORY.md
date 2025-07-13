@@ -417,8 +417,144 @@ Potential improvements that could be added:
 
 **Result:** A fully functional expense tracker with immersive Harry Potter theming that maintains professional functionality while providing a magical user experience.
 
+### July 13, 2025 - Multi-Theme System Implementation
+**Enhancement Request:** Add theme selector with multiple themes: Harry Potter, Star Wars, Peppa Pig, The Simpsons, and Barbie
+
+**Major Features Added:**
+1. **Theme System Architecture:**
+   - Created comprehensive theme model (`theme.model.ts`) with interface for all theme properties
+   - Implemented theme service (`theme.service.ts`) with signal-based state management
+   - Added CSS custom properties for dynamic theming
+   - Persistent theme selection using localStorage
+
+2. **Five Complete Themes Created:**
+   - **Harry Potter:** Dark magical theme with gold accents, Cinzel fonts, galleons currency
+   - **Star Wars:** Space theme with yellow accents, Orbitron fonts, credits currency
+   - **Peppa Pig:** Bright pink theme with Comic Sans fonts, pounds currency
+   - **The Simpsons:** Yellow/blue theme with Trebuchet MS fonts, dollars currency
+   - **Barbie:** Hot pink theme with Dancing Script fonts, gems currency
+
+3. **Theme Selector Component:**
+   - Created interactive theme selector with preview icons and labels
+   - Grid layout showing all available themes
+   - Active theme highlighting with animations
+   - Responsive design for mobile devices
+
+4. **Dynamic Theme Properties:**
+   - **Colors:** Background gradients, text colors, borders, accent colors
+   - **Fonts:** Theme-specific font families loaded dynamically
+   - **Currency:** Dynamic currency symbols (G, CR, £, $, 💎)
+   - **Categories:** Theme-specific expense categories with appropriate emojis
+   - **Labels:** Complete localization of all UI text per theme
+
+**Technical Implementation:**
+1. **Theme Model Structure:**
+```typescript
+export interface Theme {
+  id: string;
+  name: string;
+  emoji: string;
+  appTitle: string;
+  appSubtitle: string;
+  currency: string;
+  categories: readonly string[];
+  labels: {
+    formTitle: string;
+    dashboardTitle: string;
+    listTitle: string;
+    amountLabel: string;
+    addButton: string;
+    clearAllButton: string;
+    clearAllConfirm: string;
+    deleteButton: string;
+    descriptionLabel: string;
+    descriptionPlaceholder: string;
+    descriptionError: string;
+    amountError: string;
+    categoryLabel: string;
+    categoryPlaceholder: string;
+    categoryError: string;
+    dateLabel: string;
+    dateError: string;
+  };
+  colors: { /* 11 color properties */ };
+  fonts: { primary: string; decorative: string; };
+}
+```
+
+2. **Theme Service Features:**
+   - Signal-based reactive theme management
+   - Automatic CSS custom property updates
+   - Dynamic font loading for theme-specific typography
+   - Persistent storage of user theme preference
+   - Document title updates based on theme
+
+3. **Component Updates:**
+   - All components now use dynamic theme properties
+   - Form component with theme-specific labels and error messages
+   - Dashboard with themed colors and currency symbols
+   - List component with themed confirmation dialogs
+   - App header with dynamic titles and subtitles
+
+**Theme-Specific Content Examples:**
+- **Harry Potter:** "📜 Record New Magical Expense", "🧙‍♂️ Are you sure you want to clear all magical transactions? This powerful spell cannot be undone! ⚡"
+- **Star Wars:** "🚀 Record New Galactic Expense", "Empire Credits Overview"
+- **Peppa Pig:** "🎈 Record New Fun Expense", "What did you buy?", "Oink oink! Track your pocket money like Peppa"
+- **The Simpsons:** "🍩 Record New Springfield Expense", "D'oh! Are you sure you want to clear all expenses?"
+- **Barbie:** "💖 Record New Fabulous Expense", "Life in plastic, it's fantastic! Track your glamorous expenses"
+
+**User Experience Improvements:**
+1. **Seamless Theme Switching:**
+   - Instant visual updates when changing themes
+   - No page reload required
+   - Smooth CSS transitions between themes
+   - Maintained user data across theme changes
+
+2. **Enhanced Accessibility:**
+   - Improved color contrast in Barbie theme (white borders and text)
+   - Proper focus states for all theme variations
+   - Maintained WCAG compliance across all themes
+
+3. **Responsive Design:**
+   - Theme selector adapts to mobile screens
+   - All themes work properly on different screen sizes
+   - Consistent user experience across devices
+
+**File Structure Updates:**
+```
+src/app/
+├── models/
+│   ├── expense.model.ts           # Simplified model
+│   └── theme.model.ts             # NEW: Complete theme definitions
+├── services/
+│   ├── expense.service.ts         # Expense management
+│   └── theme.service.ts           # NEW: Theme management
+├── components/
+│   ├── expense-form.component.ts      # Updated with dynamic labels
+│   ├── expense-list.component.ts      # Updated with theme support
+│   ├── expense-dashboard.component.ts # Updated with theme support
+│   └── theme-selector.component.ts   # NEW: Theme selection UI
+├── app.ts                         # Updated with theme service
+├── app.html                       # Updated with dynamic content
+└── app.scss                       # Updated with CSS custom properties
+```
+
+**Performance Optimizations:**
+- CSS custom properties for efficient theme switching
+- Computed signals for reactive theme updates
+- Minimal DOM manipulation during theme changes
+- Efficient font loading strategy
+
+**Quality Improvements:**
+- Fixed Barbie theme readability issues (white text on pink background)
+- Eliminated all hardcoded Harry Potter references in generic components
+- Consistent error messaging across all themes
+- Proper TypeScript typing for all theme properties
+
+**Result:** A fully dynamic, multi-theme expense tracker that adapts completely to user preferences while maintaining all core functionality. Users can seamlessly switch between five distinct, immersive themes, each with its own visual identity, terminology, and user experience.
+
 ---
 
 **End of Development History**
-**Status:** ✅ Complete and Functional
+**Status:** ✅ Complete and Functional with Multi-Theme Support
 **URL:** http://localhost:4200/

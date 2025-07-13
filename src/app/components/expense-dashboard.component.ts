@@ -1,6 +1,7 @@
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ExpenseService } from '../services/expense.service';
+import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-expense-dashboard',
@@ -9,34 +10,34 @@ import { ExpenseService } from '../services/expense.service';
   template: `
     <div class="dashboard magical-card">
       <div class="dashboard-header">
-        <h2>🏦 Gringotts Vault Overview</h2>
+        <h2>{{ themeService.currentTheme().labels.dashboardTitle }}</h2>
       </div>
 
       <div class="stats-grid">
         <div class="stat-card total">
           <div class="stat-icon">💰</div>
-          <div class="stat-label">Total Galleons Spent</div>
-          <div class="stat-value">{{ totalExpenses().toFixed(2) }}G</div>
+          <div class="stat-label">Total Money Spent</div>
+          <div class="stat-value">{{ totalExpenses().toFixed(2) }}{{ themeService.currentTheme().currency }}</div>
         </div>
 
         <div class="stat-card count">
           <div class="stat-icon">📜</div>
-          <div class="stat-label">Magical Transactions</div>
+          <div class="stat-label">Total Transactions</div>
           <div class="stat-value">{{ expenses().length }}</div>
         </div>
 
         @if (expenses().length > 0) {
           <div class="stat-card average">
             <div class="stat-icon">⚡</div>
-            <div class="stat-label">Average per Spell</div>
-            <div class="stat-value">{{ getAverageExpense().toFixed(2) }}G</div>
+            <div class="stat-label">Average per Transaction</div>
+            <div class="stat-value">{{ getAverageExpense().toFixed(2) }}{{ themeService.currentTheme().currency }}</div>
           </div>
         }
       </div>
 
       @if (getCategoriesSorted().length > 0) {
         <div class="categories-section">
-          <h3>🏪 Expenses by Magical Category</h3>
+          <h3>🏪 Expenses by Category</h3>
           <div class="category-list">
             @for (item of getCategoriesSorted(); track item.category) {
               <div class="category-item">
@@ -50,7 +51,7 @@ import { ExpenseService } from '../services/expense.service';
                     [style.width.%]="item.percentage"
                   ></div>
                 </div>
-                <div class="category-amount">{{ item.amount.toFixed(2) }}G</div>
+                <div class="category-amount">{{ item.amount.toFixed(2) }}{{ themeService.currentTheme().currency }}</div>
               </div>
             }
           </div>
@@ -59,12 +60,12 @@ import { ExpenseService } from '../services/expense.service';
 
       @if (recentExpenses().length > 0) {
         <div class="recent-section">
-          <h3>🕰️ Recent Magical Transactions</h3>
+          <h3>🕰️ Recent Transactions</h3>
           <div class="recent-list">
             @for (expense of recentExpenses(); track expense.id) {
               <div class="recent-item">
                 <div class="recent-description">{{ expense.description }}</div>
-                <div class="recent-amount">{{ expense.amount.toFixed(2) }}G</div>
+                <div class="recent-amount">{{ expense.amount.toFixed(2) }}{{ themeService.currentTheme().currency }}</div>
               </div>
             }
           </div>
@@ -77,9 +78,9 @@ import { ExpenseService } from '../services/expense.service';
       padding: 28px;
       margin-bottom: 24px;
       position: relative;
-      background: linear-gradient(135deg, rgba(25, 25, 112, 0.95), rgba(72, 61, 139, 0.95));
-      border: 3px solid #8b4513;
-      color: #f4f4f4;
+      background: var(--theme-card-background);
+      border: 3px solid var(--theme-border);
+      color: var(--theme-text-primary);
     }
 
     .dashboard::after {
@@ -93,11 +94,11 @@ import { ExpenseService } from '../services/expense.service';
 
     .dashboard-header h2 {
       margin: 0 0 28px 0;
-      color: #ffd700;
+      color: var(--theme-primary);
       font-size: 1.6rem;
       font-weight: 700;
-      font-family: 'Cinzel Decorative', serif;
-      text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+      font-family: var(--theme-font-decorative);
+      text-shadow: 0 0 10px var(--theme-primary);
       text-align: center;
     }
 
@@ -112,7 +113,7 @@ import { ExpenseService } from '../services/expense.service';
       padding: 24px;
       border-radius: 12px;
       text-align: center;
-      border: 2px solid #8b4513;
+      border: 2px solid var(--theme-border);
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
@@ -125,7 +126,8 @@ import { ExpenseService } from '../services/expense.service';
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(45deg, transparent 30%, rgba(255, 215, 0, 0.1) 50%, transparent 70%);
+      background: linear-gradient(45deg, transparent 30%, var(--theme-primary) 50%, transparent 70%);
+      opacity: 0.1;
       transform: translateX(-100%);
       transition: transform 0.6s;
     }
@@ -300,6 +302,7 @@ import { ExpenseService } from '../services/expense.service';
 })
 export class ExpenseDashboardComponent {
   private expenseService = inject(ExpenseService);
+  themeService = inject(ThemeService);
 
   expenses = this.expenseService.getExpenses();
   totalExpenses = this.expenseService.totalExpenses;
