@@ -7,15 +7,15 @@ export interface Expense {
 }
 
 export const EXPENSE_CATEGORIES = [
-  'Food & Dining',
-  'Transportation',
-  'Shopping',
-  'Entertainment',
-  'Bills & Utilities',
-  'Healthcare',
-  'Travel',
-  'Education',
-  'Other'
+  '🍖 Food & Butterbeer',
+  '🚂 Magical Transportation',
+  '📚 Books & Supplies',
+  '🎭 Entertainment & Quidditch',
+  '⚡ Magical Services',
+  '🏥 Healing & Potions',
+  '✈️ Magical Travel',
+  '🎓 Magical Education',
+  '🔮 Other Magical Items'
 ] as const;
 
 export type ExpenseCategory = typeof EXPENSE_CATEGORIES[number];

@@ -9,25 +9,25 @@ import { EXPENSE_CATEGORIES } from '../models/expense.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, CommonModule],
   template: `
-    <div class="form-container">
-      <h2>Add New Expense</h2>
+    <div class="form-container magical-card">
+      <h2>📜 Record New Magical Expense</h2>
       <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-          <label for="description">Description</label>
+          <label for="description">✨ Description of Expense</label>
           <input
             id="description"
             type="text"
             formControlName="description"
-            placeholder="Enter expense description"
+            placeholder="Enter magical expense description..."
             [class.error]="descriptionControl.invalid && descriptionControl.touched"
           />
           @if (descriptionControl.invalid && descriptionControl.touched) {
-            <span class="error-message">Description is required</span>
+            <span class="error-message">🚫 Description is required, young wizard!</span>
           }
         </div>
 
         <div class="form-group">
-          <label for="amount">Amount ($)</label>
+          <label for="amount">💰 Amount (Galleons)</label>
           <input
             id="amount"
             type="number"
@@ -37,29 +37,29 @@ import { EXPENSE_CATEGORIES } from '../models/expense.model';
             [class.error]="amountControl.invalid && amountControl.touched"
           />
           @if (amountControl.invalid && amountControl.touched) {
-            <span class="error-message">Valid amount is required</span>
+            <span class="error-message">🚫 Valid amount is required for Gringotts records!</span>
           }
         </div>
 
         <div class="form-group">
-          <label for="category">Category</label>
+          <label for="category">🏪 Magical Category</label>
           <select
             id="category"
             formControlName="category"
             [class.error]="categoryControl.invalid && categoryControl.touched"
           >
-            <option value="">Select a category</option>
+            <option value="">Select a magical category...</option>
             @for (category of categories; track category) {
               <option [value]="category">{{ category }}</option>
             }
           </select>
           @if (categoryControl.invalid && categoryControl.touched) {
-            <span class="error-message">Category is required</span>
+            <span class="error-message">🚫 Category selection is required by Ministry law!</span>
           }
         </div>
 
         <div class="form-group">
-          <label for="date">Date</label>
+          <label for="date">📅 Date of Transaction</label>
           <input
             id="date"
             type="date"
@@ -67,99 +67,159 @@ import { EXPENSE_CATEGORIES } from '../models/expense.model';
             [class.error]="dateControl.invalid && dateControl.touched"
           />
           @if (dateControl.invalid && dateControl.touched) {
-            <span class="error-message">Date is required</span>
+            <span class="error-message">🚫 Date is required for magical records!</span>
           }
         </div>
 
         <button 
           type="submit" 
           [disabled]="expenseForm.invalid || isSubmitting()"
-          class="submit-btn"
+          class="submit-btn magical-button"
         >
-          {{ isSubmitting() ? 'Adding...' : 'Add Expense' }}
+          {{ isSubmitting() ? '🪄 Casting spell...' : '⚡ Add to Ledger' }}
         </button>
       </form>
     </div>
   `,
   styles: [`
     .form-container {
-      background: white;
-      border-radius: 12px;
-      padding: 24px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 28px;
       margin-bottom: 24px;
+      position: relative;
+      background: linear-gradient(135deg, rgba(25, 25, 112, 0.95), rgba(72, 61, 139, 0.95));
+      border: 3px solid #8b4513;
+      color: #f4f4f4;
+    }
+
+    .form-container::after {
+      content: '🦉';
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 1.5rem;
+      opacity: 0.7;
     }
 
     h2 {
-      margin: 0 0 24px 0;
-      color: #2c3e50;
-      font-size: 1.5rem;
-      font-weight: 600;
+      margin: 0 0 28px 0;
+      color: #ffd700;
+      font-size: 1.6rem;
+      font-weight: 700;
+      font-family: 'Cinzel Decorative', serif;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+      text-align: center;
     }
 
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
 
     label {
       display: block;
-      margin-bottom: 6px;
-      color: #34495e;
-      font-weight: 500;
-      font-size: 0.9rem;
+      margin-bottom: 8px;
+      color: #ffd700;
+      font-weight: 600;
+      font-size: 1rem;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
     }
 
     input,
     select {
       width: 100%;
-      padding: 12px;
-      border: 2px solid #e1e8ed;
-      border-radius: 8px;
+      padding: 14px 16px;
+      border: 2px solid #8b4513;
+      border-radius: 10px;
       font-size: 1rem;
-      transition: border-color 0.2s ease;
+      transition: all 0.3s ease;
       box-sizing: border-box;
+      background: rgba(25, 25, 112, 0.8);
+      color: #f4f4f4;
+      font-family: 'Cinzel', serif;
+    }
+
+    input::placeholder {
+      color: #b8b8b8;
+      font-style: italic;
     }
 
     input:focus,
     select:focus {
       outline: none;
-      border-color: #3498db;
+      border-color: #ffd700;
+      box-shadow: 
+        0 0 15px rgba(255, 215, 0, 0.4),
+        inset 0 2px 4px rgba(0, 0, 0, 0.2);
+      background: rgba(25, 25, 112, 0.9);
     }
 
     input.error,
     select.error {
-      border-color: #e74c3c;
+      border-color: #dc143c;
+      box-shadow: 0 0 10px rgba(220, 20, 60, 0.4);
     }
 
     .error-message {
-      color: #e74c3c;
-      font-size: 0.85rem;
-      margin-top: 4px;
+      color: #ff6b6b;
+      font-size: 0.9rem;
+      margin-top: 6px;
       display: block;
+      font-weight: 500;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     }
 
-    .submit-btn {
-      background: #3498db;
-      color: white;
-      border: none;
-      padding: 14px 28px;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 600;
+    .magical-button {
+      background: linear-gradient(135deg, #8b4513, #daa520, #ffd700);
+      color: #1a1a2e;
+      border: 2px solid #8b4513;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 700;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.3s ease;
       width: 100%;
+      font-family: 'Cinzel', serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .submit-btn:hover:not(:disabled) {
-      background: #2980b9;
-      transform: translateY(-1px);
+    .magical-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.5s;
     }
 
-    .submit-btn:disabled {
-      background: #bdc3c7;
+    .magical-button:hover:not(:disabled)::before {
+      left: 100%;
+    }
+
+    .magical-button:hover:not(:disabled) {
+      background: linear-gradient(135deg, #daa520, #ffd700, #ffff00);
+      transform: translateY(-2px);
+      box-shadow: 
+        0 8px 25px rgba(255, 215, 0, 0.4),
+        0 0 20px rgba(255, 215, 0, 0.3);
+    }
+
+    .magical-button:disabled {
+      background: linear-gradient(135deg, #555, #777);
+      color: #999;
       cursor: not-allowed;
       transform: none;
+      box-shadow: none;
+    }
+
+    select option {
+      background: #1a1a2e;
+      color: #f4f4f4;
+      padding: 8px;
     }
   `]
 })
