@@ -51,6 +51,10 @@ export class LanguageService {
       categoryError: translations.categoryError[themeKey],
       dateLabel: translations.dateLabel,
       dateError: translations.dateError,
+      totalMoneySpent: translations.totalMoneySpent[themeKey],
+      totalTransactions: translations.totalTransactions[themeKey],
+      expensesByCategory: translations.expensesByCategory[themeKey],
+      recentTransactions: translations.recentTransactions[themeKey],
       categories: translations.categories[themeKey]
     };
   }

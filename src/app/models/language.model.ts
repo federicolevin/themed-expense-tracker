@@ -121,6 +121,36 @@ export interface Language {
     dateLabel: string;
     dateError: string;
 
+    // Dashboard statistics
+    totalMoneySpent: {
+      harryPotter: string;
+      starWars: string;
+      peppaPig: string;
+      simpsons: string;
+      barbie: string;
+    };
+    totalTransactions: {
+      harryPotter: string;
+      starWars: string;
+      peppaPig: string;
+      simpsons: string;
+      barbie: string;
+    };
+    expensesByCategory: {
+      harryPotter: string;
+      starWars: string;
+      peppaPig: string;
+      simpsons: string;
+      barbie: string;
+    };
+    recentTransactions: {
+      harryPotter: string;
+      starWars: string;
+      peppaPig: string;
+      simpsons: string;
+      barbie: string;
+    };
+
     // Categories
     categories: {
       harryPotter: readonly string[];
@@ -260,6 +290,34 @@ export const LANGUAGES: Record<string, Language> = {
       },
       dateLabel: 'Date',
       dateError: 'Date is required!',
+      totalMoneySpent: {
+        harryPotter: 'Total Galleons Spent',
+        starWars: 'Total Credits Spent',
+        peppaPig: 'Total Money Spent',
+        simpsons: 'Total Money Spent',
+        barbie: 'Total Gems Spent'
+      },
+      totalTransactions: {
+        harryPotter: 'Total Magical Transactions',
+        starWars: 'Total Galactic Transactions',
+        peppaPig: 'Total Fun Expenses',
+        simpsons: 'Total Springfield Transactions',
+        barbie: 'Total Fabulous Transactions'
+      },
+      expensesByCategory: {
+        harryPotter: '🏪 Expenses by Magical Category',
+        starWars: '🏪 Expenses by Galactic Category',
+        peppaPig: '🎪 Expenses by Fun Category',
+        simpsons: '🏪 Expenses by Springfield Category',
+        barbie: '✨ Expenses by Fabulous Category'
+      },
+      recentTransactions: {
+        harryPotter: '🕰️ Recent Magical Transactions',
+        starWars: '🕰️ Recent Galactic Transactions',
+        peppaPig: '🕰️ Recent Fun Transactions',
+        simpsons: '🕰️ Recent Springfield Transactions',
+        barbie: '🕰️ Recent Fabulous Transactions'
+      },
       categories: {
         harryPotter: [
           '🍖 Food & Butterbeer',
@@ -442,6 +500,34 @@ export const LANGUAGES: Record<string, Language> = {
       },
       dateLabel: 'Fecha',
       dateError: '¡La fecha es requerida!',
+      totalMoneySpent: {
+        harryPotter: 'Total de Galeones Gastados',
+        starWars: 'Total de Créditos Gastados',
+        peppaPig: 'Total de Dinero Gastado',
+        simpsons: 'Total de Dinero Gastado',
+        barbie: 'Total de Gemas Gastadas'
+      },
+      totalTransactions: {
+        harryPotter: 'Total de Transacciones Mágicas',
+        starWars: 'Total de Transacciones Galácticas',
+        peppaPig: 'Total de Gastos Divertidos',
+        simpsons: 'Total de Transacciones de Springfield',
+        barbie: 'Total de Transacciones Fabulosas'
+      },
+      expensesByCategory: {
+        harryPotter: '🏪 Gastos por Categoría Mágica',
+        starWars: '🏪 Gastos por Categoría Galáctica',
+        peppaPig: '🎪 Gastos por Categoría Divertida',
+        simpsons: '🏪 Gastos por Categoría de Springfield',
+        barbie: '✨ Gastos por Categoría Fabulosa'
+      },
+      recentTransactions: {
+        harryPotter: '🕰️ Transacciones Mágicas Recientes',
+        starWars: '🕰️ Transacciones Galácticas Recientes',
+        peppaPig: '🕰️ Transacciones Divertidas Recientes',
+        simpsons: '🕰️ Transacciones Recientes de Springfield',
+        barbie: '🕰️ Transacciones Fabulosas Recientes'
+      },
       categories: {
         harryPotter: [
           '🍖 Comida y Cerveza de Mantequilla',

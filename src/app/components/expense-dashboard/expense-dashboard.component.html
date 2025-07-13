@@ -6,20 +6,20 @@
       <div class="stats-grid">
         <div class="stat-card total">
           <div class="stat-icon">💰</div>
-          <div class="stat-label">Total Money Spent</div>
+          <div class="stat-label">{{ content().totalMoneySpent }}</div>
           <div class="stat-value">{{ totalExpenses().toFixed(2) }}{{ themeService.currentTheme().currency }}</div>
         </div>
 
         <div class="stat-card count">
           <div class="stat-icon">📜</div>
-          <div class="stat-label">Total Transactions</div>
+          <div class="stat-label">{{ content().totalTransactions }}</div>
           <div class="stat-value">{{ expenses().length }}</div>
         </div>
       </div>
 
       @if (getCategoriesSorted().length > 0) {
         <div class="categories-section">
-          <h3>🏪 Expenses by Category</h3>
+          <h3>{{ content().expensesByCategory }}</h3>
           <div class="category-list">
             @for (item of getCategoriesSorted(); track item.category) {
               <div class="category-item">
@@ -42,7 +42,7 @@
 
       @if (recentExpenses().length > 0) {
         <div class="recent-section">
-          <h3>🕰️ Recent Transactions</h3>
+          <h3>{{ content().recentTransactions }}</h3>
           <div class="recent-list">
             @for (expense of recentExpenses(); track expense.id) {
               <div class="recent-item">
