@@ -38,8 +38,8 @@
             [class.error]="categoryControl.invalid && categoryControl.touched"
           >
             <option value="">{{ content().categoryPlaceholder }}</option>
-            @for (category of content().categories; track category) {
-              <option [value]="category">{{ category }}</option>
+            @for (option of categoryOptions(); track option.key) {
+              <option [value]="option.key">{{ option.label }}</option>
             }
           </select>
           @if (categoryControl.invalid && categoryControl.touched) {

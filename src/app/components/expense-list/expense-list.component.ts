@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ExpenseService } from '../../services/expense.service';
 import { ThemeService } from '../../services/theme.service';
 import { LanguageService } from '../../services/language.service';
+import { CategoryKey } from '../../models/expense.model';
 
 @Component({
   selector: 'app-expense-list',
@@ -23,6 +24,12 @@ export class ExpenseListComponent {
   });
 
   expenses = this.expenseService.getExpenses();
+
+  // Method to get translated category name
+  getCategoryName(categoryKey: CategoryKey): string {
+    const themeId = this.themeService.currentTheme().id;
+    return this.languageService.getCategoryName(categoryKey, themeId);
+  }
 
   deleteExpense(id: string) {
     this.expenseService.deleteExpense(id);

@@ -748,6 +748,355 @@ src/app/components/settings-sidebar.component.ts
 ### Code Quality Improvements
 
 **Component Architecture:**
+- Dedicated settings component with single responsibility
+- Clean separation between settings and main functionality
+- Reusable sidebar pattern for future enhancements
+- Improved TypeScript typing throughout
+
+**File Organization:**
+- Logical component grouping
+- Clear dependencies between services
+- Consistent naming conventions
+- Modular SCSS structure
+
+**Result:** Professional settings interface that enhances user experience while maintaining the app's core focus on expense tracking functionality.
+
+---
+
+### July 13, 2025 - Component File Organization
+**Enhancement Request:** Separate Angular components into individual .ts, .html, and .scss files
+
+**Major Structural Improvement:**
+Reorganized all Angular components to follow Angular best practices by separating concerns into dedicated files for each component.
+
+### Files Separated
+
+**1. Expense Dashboard Component:**
+- `expense-dashboard.component.ts` - TypeScript logic
+- `expense-dashboard.component.html` - Template markup  
+- `expense-dashboard.component.scss` - Component styles
+
+**2. Expense Form Component:**
+- `expense-form.component.ts` - Form logic and validation
+- `expense-form.component.html` - Form template
+- `expense-form.component.scss` - Form styling
+
+**3. Expense List Component:**
+- `expense-list.component.ts` - List management logic
+- `expense-list.component.html` - List template
+- `expense-list.component.scss` - List styling
+
+**4. Language Selector Component:**
+- `language-selector.component.ts` - Language switching logic
+- `language-selector.component.html` - Selector template
+- `language-selector.component.scss` - Selector styling
+
+**5. Settings Sidebar Component:**
+- `settings-sidebar.component.ts` - Sidebar functionality
+- `settings-sidebar.component.html` - Sidebar template
+- `settings-sidebar.component.scss` - Sidebar styling
+
+**6. Theme Selector Component:**
+- `theme-selector.component.ts` - Theme switching logic
+- `theme-selector.component.html` - Theme picker template
+- `theme-selector.component.scss` - Theme picker styling
+
+### Folder Structure Organization
+
+**Created Individual Component Folders:**
+```
+src/app/components/
+├── expense-dashboard/
+│   ├── expense-dashboard.component.ts
+│   ├── expense-dashboard.component.html
+│   └── expense-dashboard.component.scss
+├── expense-form/
+│   ├── expense-form.component.ts
+│   ├── expense-form.component.html
+│   └── expense-form.component.scss
+├── expense-list/
+│   ├── expense-list.component.ts
+│   ├── expense-list.component.html
+│   └── expense-list.component.scss
+├── language-selector/
+│   ├── language-selector.component.ts
+│   ├── language-selector.component.html
+│   └── language-selector.component.scss
+├── settings-sidebar/
+│   ├── settings-sidebar.component.ts
+│   ├── settings-sidebar.component.html
+│   └── settings-sidebar.component.scss
+└── theme-selector/
+    ├── theme-selector.component.ts
+    ├── theme-selector.component.html
+    └── theme-selector.component.scss
+```
+
+### Import Path Updates
+
+**Updated all component imports in:**
+- `app.ts` - Main application component
+- Cross-component dependencies fixed
+- Service import paths corrected
+- Maintained all existing functionality
+
+### Benefits Achieved
+
+**1. Improved Maintainability:**
+- Clear separation of concerns
+- Easier to locate and edit specific component aspects
+- Better version control diff tracking
+- Reduced file size for individual concerns
+
+**2. Enhanced Developer Experience:**
+- Dedicated syntax highlighting for each file type
+- Better IDE support and IntelliSense
+- Easier debugging and troubleshooting
+- Standard Angular project structure
+
+**3. Team Collaboration:**
+- Multiple developers can work on same component
+- Reduced merge conflicts
+- Clearer code review process
+- Standard industry practices followed
+
+**4. Code Organization:**
+- Logical file grouping
+- Easier navigation in IDE
+- Better project structure understanding
+- Scalability for future development
+
+### Technical Implementation
+
+**Component Decorators Updated:**
+```typescript
+@Component({
+  selector: 'app-expense-form',
+  templateUrl: './expense-form.component.html',
+  styleUrl: './expense-form.component.scss'
+})
+```
+
+**All Components Verified:**
+- No compilation errors after separation
+- All functionality preserved
+- Proper file references maintained
+- Consistent naming conventions applied
+
+**Result:** Professional Angular project structure following industry best practices with improved maintainability, clearer organization, and enhanced developer experience while preserving all existing functionality.
+
+---
+
+### July 13, 2025 - Dashboard Translation Fix
+**Enhancement Request:** Fix untranslated dashboard labels
+
+**Issue Identified:**
+Four labels in the expense dashboard were hardcoded in English and not translating when switching languages or themes:
+- "Total Money Spent"
+- "Total Transactions" 
+- "Expenses by Category"
+- "Recent Transactions"
+
+### Translation Implementation
+
+**1. Language Model Updates:**
+Added new translation keys to the interface:
+```typescript
+// Dashboard statistics
+totalMoneySpent: { harryPotter: string; starWars: string; ... };
+totalTransactions: { harryPotter: string; starWars: string; ... };
+expensesByCategory: { harryPotter: string; starWars: string; ... };
+recentTransactions: { harryPotter: string; starWars: string; ... };
+```
+
+**2. English Translations Added:**
+- Harry Potter: "Total Galleons Spent", "Total Magical Transactions"
+- Star Wars: "Total Credits Spent", "Total Galactic Transactions"  
+- Peppa Pig: "Total Money Spent", "Total Fun Expenses"
+- Simpsons: "Total Money Spent", "Total Springfield Transactions"
+- Barbie: "Total Gems Spent", "Total Fabulous Transactions"
+
+**3. Spanish Translations Added:**
+- Harry Potter: "Total de Galeones Gastados", "Total de Transacciones Mágicas"
+- Star Wars: "Total de Créditos Gastados", "Total de Transacciones Galácticas"
+- Peppa Pig: "Total de Dinero Gastado", "Total de Gastos Divertidos"
+- Simpsons: "Total de Dinero Gastado", "Total de Transacciones de Springfield"
+- Barbie: "Total de Gemas Gastadas", "Total de Transacciones Fabulosas"
+
+**4. Language Service Updates:**
+Extended `getThemeTranslations()` method to include new dashboard labels:
+```typescript
+totalMoneySpent: translations.totalMoneySpent[themeKey],
+totalTransactions: translations.totalTransactions[themeKey],
+expensesByCategory: translations.expensesByCategory[themeKey],
+recentTransactions: translations.recentTransactions[themeKey],
+```
+
+**5. Dashboard Component Updates:**
+Replaced hardcoded English text with dynamic translations:
+```html
+<div class="stat-label">{{ content().totalMoneySpent }}</div>
+<div class="stat-label">{{ content().totalTransactions }}</div>
+<h3>{{ content().expensesByCategory }}</h3>
+<h3>{{ content().recentTransactions }}</h3>
+```
+
+### Enhanced Theme Consistency
+
+**Maintained Theme Personality:**
+- Each theme has appropriate terminology (Galleons vs Credits vs Gems)
+- Icons included where appropriate (🏪, 🕰️) 
+- Cultural context preserved in translations
+- Immersive experience maintained across languages
+
+**Quality Improvements:**
+- No compilation errors after updates
+- All existing functionality preserved
+- Seamless language switching
+- Theme-specific translations working correctly
+
+**Result:** Complete internationalization of dashboard statistics with theme-appropriate translations in both English and Spanish. Users now see fully localized dashboard content that adapts to both their selected theme and language preference.
+
+---
+
+### July 13, 2025 - Dynamic Category System Implementation
+**Enhancement Request:** Fix category translation issue when switching themes
+
+**Critical Issue Identified:**
+Categories were being saved as theme-specific text strings (e.g., "🍖 Comida y Cerveza de Mantequilla") instead of generic keys, causing incorrect category display when switching themes. A user creating an expense in Harry Potter theme would see "Food & Butterbeer" when switching to Simpsons theme instead of the appropriate "Food & Duff Beer".
+
+### Complete Data Model Refactor
+
+**1. Category Key System:**
+Created `CategoryKey` enum with generic category types:
+```typescript
+export enum CategoryKey {
+  FOOD = 'food',
+  TRANSPORT = 'transport', 
+  BOOKS_SUPPLIES = 'booksSupplies',
+  ENTERTAINMENT = 'entertainment',
+  SERVICES = 'services',
+  HEALTH = 'health',
+  TRAVEL = 'travel',
+  EDUCATION = 'education',
+  OTHER = 'other'
+}
+```
+
+**2. Expense Model Update:**
+Changed expense category from `string` to `CategoryKey`:
+```typescript
+export interface Expense {
+  id: string;
+  description: string;
+  amount: number;
+  category: CategoryKey;  // Changed from string
+  date: Date;
+}
+```
+
+**3. Language Model Restructure:**
+Converted category arrays to key-value mappings:
+```typescript
+categories: {
+  harryPotter: Record<CategoryKey, string>;
+  starWars: Record<CategoryKey, string>;
+  // ... other themes
+}
+```
+
+### Translation System Overhaul
+
+**4. Category Mapping Implementation:**
+```typescript
+// English
+harryPotter: {
+  [CategoryKey.FOOD]: '🍖 Food & Butterbeer',
+  [CategoryKey.TRANSPORT]: '🚂 Magical Transportation',
+  // ...
+},
+simpsons: {
+  [CategoryKey.FOOD]: '🍩 Food & Duff Beer',
+  [CategoryKey.TRANSPORT]: '🚗 Car & Transport',
+  // ...
+}
+
+// Spanish  
+harryPotter: {
+  [CategoryKey.FOOD]: '🍖 Comida y Cerveza de Mantequilla',
+  [CategoryKey.TRANSPORT]: '🚂 Transporte Mágico',
+  // ...
+},
+simpsons: {
+  [CategoryKey.FOOD]: '🍩 Comida y Cerveza Duff',
+  [CategoryKey.TRANSPORT]: '🚗 Auto y Transporte',
+  // ...
+}
+```
+
+**5. Language Service Enhancements:**
+Added category translation methods:
+```typescript
+getCategoryName(categoryKey: CategoryKey, themeId: ThemeId): string
+getCategoryKeys(): CategoryKey[]
+```
+
+### Component Architecture Updates
+
+**6. Form Component Refactor:**
+- Added `categoryOptions` computed property for dynamic category lists
+- Updated form submission to save `CategoryKey` instead of display text
+- Modified HTML template to use key-value pairs in select options
+
+**7. List Component Updates:**
+- Added `getCategoryName()` method for dynamic category display
+- Updated template to translate categories on-the-fly
+- Added missing `clearAllExpenses()` method
+
+**8. Dashboard Component Enhancements:**
+- Modified `getCategoriesSorted()` to translate category names
+- Updated template to display translated category names
+- Maintained percentage calculations and sorting functionality
+
+### Data Migration System
+
+**9. Automatic Legacy Data Migration:**
+Implemented comprehensive migration in `ExpenseService`:
+```typescript
+private migrateCategoryToKey(category: any): CategoryKey {
+  // Maps old string categories to new keys
+  const categoryMapping: Record<string, CategoryKey> = {
+    '🍖 Food & Butterbeer': CategoryKey.FOOD,
+    '🍖 Comida y Cerveza de Mantequilla': CategoryKey.FOOD,
+    '🚂 Magical Transportation': CategoryKey.TRANSPORT,
+    // ... comprehensive mapping for all themes and languages
+  };
+  
+  return categoryMapping[category] || CategoryKey.OTHER;
+}
+```
+
+### Technical Benefits
+
+**Immediate Problem Resolution:**
+- ✅ Categories now translate properly when switching themes
+- ✅ Harry Potter "Food & Butterbeer" → Simpsons "Food & Duff Beer"
+- ✅ Star Wars "Spaceship Transport" → Peppa Pig "Transport Fun"
+- ✅ Existing user data automatically migrated without loss
+
+**Long-term Improvements:**
+- Normalized data model prevents future category inconsistencies
+- Scalable system for adding new themes or languages
+- Type-safe category management with TypeScript
+- Reduced storage requirements (keys vs full text)
+
+**User Experience:**
+- Seamless theme switching with appropriate category names
+- No data loss during migration
+- Consistent category experience across all themes
+- Proper localization in both English and Spanish
+
+**Result:** Complete resolution of the category translation issue through a normalized data model using generic category keys that dynamically translate to theme-specific display text. Users can now switch between any theme and see appropriate category names while maintaining all their existing expense data.
 - Single responsibility principle applied
 - Clean separation of concerns
 - Reusable signal-based state management

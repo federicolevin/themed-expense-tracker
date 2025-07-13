@@ -1,3 +1,5 @@
+import { CategoryKey } from './expense.model';
+
 export interface Language {
   id: string;
   name: string;
@@ -153,11 +155,11 @@ export interface Language {
 
     // Categories
     categories: {
-      harryPotter: readonly string[];
-      starWars: readonly string[];
-      peppaPig: readonly string[];
-      simpsons: readonly string[];
-      barbie: readonly string[];
+      harryPotter: Record<CategoryKey, string>;
+      starWars: Record<CategoryKey, string>;
+      peppaPig: Record<CategoryKey, string>;
+      simpsons: Record<CategoryKey, string>;
+      barbie: Record<CategoryKey, string>;
     };
 
     // Language selector
@@ -319,61 +321,61 @@ export const LANGUAGES: Record<string, Language> = {
         barbie: '🕰️ Recent Fabulous Transactions'
       },
       categories: {
-        harryPotter: [
-          '🍖 Food & Butterbeer',
-          '🚂 Magical Transportation',
-          '📚 Books & Supplies',
-          '🎭 Entertainment & Quidditch',
-          '⚡ Magical Services',
-          '🏥 Healing & Potions',
-          '✈️ Magical Travel',
-          '🎓 Magical Education',
-          '🔮 Other Magical Items'
-        ],
-        starWars: [
-          '🍖 Cantina & Food',
-          '🚀 Spaceship Transport',
-          '🔫 Weapons & Gear',
-          '🎮 Holonet Entertainment',
-          '⚙️ Droid Services',
-          '💊 Medical & Bacta',
-          '🌌 Hyperspace Travel',
-          '📚 Jedi Training',
-          '🔧 Other Equipment'
-        ],
-        peppaPig: [
-          '🍰 Snacks & Treats',
-          '🚌 Transport Fun',
-          '🧸 Toys & Games',
-          '🎪 Fun Activities',
-          '🏥 Growing Up Care',
-          '💊 Healthy Things',
-          '✈️ Holiday Adventures',
-          '📚 Learning Time',
-          '🎁 Other Goodies'
-        ],
-        simpsons: [
-          '🍩 Food & Duff Beer',
-          '🚗 Car & Transport',
-          '📺 Entertainment',
-          '🎪 Krusty Land Fun',
-          '⚡ Nuclear Plant',
-          '🏥 Dr. Hibbert Care',
-          '✈️ Family Vacations',
-          '📚 School Supplies',
-          '🔧 Other Springfield'
-        ],
-        barbie: [
-          '💄 Beauty & Fashion',
-          '🚗 Pink Transportation',
-          '👗 Shopping Sprees',
-          '🎉 Fabulous Events',
-          '💅 Self Care',
-          '💊 Wellness & Health',
-          '✈️ Dream Vacations',
-          '📚 Girl Power Learning',
-          '💖 Other Fabulous'
-        ]
+        harryPotter: {
+          [CategoryKey.FOOD]: '🍖 Food & Butterbeer',
+          [CategoryKey.TRANSPORT]: '🚂 Magical Transportation',
+          [CategoryKey.BOOKS_SUPPLIES]: '📚 Books & Supplies',
+          [CategoryKey.ENTERTAINMENT]: '🎭 Entertainment & Quidditch',
+          [CategoryKey.SERVICES]: '⚡ Magical Services',
+          [CategoryKey.HEALTH]: '🏥 Healing & Potions',
+          [CategoryKey.TRAVEL]: '✈️ Magical Travel',
+          [CategoryKey.EDUCATION]: '🎓 Magical Education',
+          [CategoryKey.OTHER]: '🔮 Other Magical Items'
+        },
+        starWars: {
+          [CategoryKey.FOOD]: '🍖 Cantina & Food',
+          [CategoryKey.TRANSPORT]: '🚀 Spaceship Transport',
+          [CategoryKey.BOOKS_SUPPLIES]: '🔫 Weapons & Gear',
+          [CategoryKey.ENTERTAINMENT]: '🎮 Holonet Entertainment',
+          [CategoryKey.SERVICES]: '⚙️ Droid Services',
+          [CategoryKey.HEALTH]: '💊 Medical & Bacta',
+          [CategoryKey.TRAVEL]: '🌌 Hyperspace Travel',
+          [CategoryKey.EDUCATION]: '📚 Jedi Training',
+          [CategoryKey.OTHER]: '🔧 Other Equipment'
+        },
+        peppaPig: {
+          [CategoryKey.FOOD]: '🍰 Snacks & Treats',
+          [CategoryKey.TRANSPORT]: '🚌 Transport Fun',
+          [CategoryKey.BOOKS_SUPPLIES]: '🧸 Toys & Games',
+          [CategoryKey.ENTERTAINMENT]: '🎪 Fun Activities',
+          [CategoryKey.SERVICES]: '🏥 Growing Up Care',
+          [CategoryKey.HEALTH]: '💊 Healthy Things',
+          [CategoryKey.TRAVEL]: '✈️ Holiday Adventures',
+          [CategoryKey.EDUCATION]: '📚 Learning Time',
+          [CategoryKey.OTHER]: '🎁 Other Goodies'
+        },
+        simpsons: {
+          [CategoryKey.FOOD]: '🍩 Food & Duff Beer',
+          [CategoryKey.TRANSPORT]: '🚗 Car & Transport',
+          [CategoryKey.BOOKS_SUPPLIES]: '📺 Entertainment',
+          [CategoryKey.ENTERTAINMENT]: '🎪 Krusty Land Fun',
+          [CategoryKey.SERVICES]: '⚡ Nuclear Plant',
+          [CategoryKey.HEALTH]: '🏥 Dr. Hibbert Care',
+          [CategoryKey.TRAVEL]: '✈️ Family Vacations',
+          [CategoryKey.EDUCATION]: '📚 School Supplies',
+          [CategoryKey.OTHER]: '🔧 Other Springfield'
+        },
+        barbie: {
+          [CategoryKey.FOOD]: '💄 Beauty & Fashion',
+          [CategoryKey.TRANSPORT]: '🚗 Pink Transportation',
+          [CategoryKey.BOOKS_SUPPLIES]: '👗 Shopping Sprees',
+          [CategoryKey.ENTERTAINMENT]: '🎉 Fabulous Events',
+          [CategoryKey.SERVICES]: '💅 Self Care',
+          [CategoryKey.HEALTH]: '💊 Wellness & Health',
+          [CategoryKey.TRAVEL]: '✈️ Dream Vacations',
+          [CategoryKey.EDUCATION]: '📚 Girl Power Learning',
+          [CategoryKey.OTHER]: '💖 Other Fabulous'
+        }
       },
       languageSelector: {
         title: 'Choose Language',
@@ -529,61 +531,61 @@ export const LANGUAGES: Record<string, Language> = {
         barbie: '🕰️ Transacciones Fabulosas Recientes'
       },
       categories: {
-        harryPotter: [
-          '🍖 Comida y Cerveza de Mantequilla',
-          '🚂 Transporte Mágico',
-          '📚 Libros y Suministros',
-          '🎭 Entretenimiento y Quidditch',
-          '⚡ Servicios Mágicos',
-          '🏥 Sanación y Pociones',
-          '✈️ Viajes Mágicos',
-          '🎓 Educación Mágica',
-          '🔮 Otros Artículos Mágicos'
-        ],
-        starWars: [
-          '🍖 Cantina y Comida',
-          '🚀 Transporte de Nave Espacial',
-          '🔫 Armas y Equipo',
-          '🎮 Entretenimiento Holonet',
-          '⚙️ Servicios de Droides',
-          '💊 Médico y Bacta',
-          '🌌 Viajes en Hiperespacio',
-          '📚 Entrenamiento Jedi',
-          '🔧 Otro Equipo'
-        ],
-        peppaPig: [
-          '🍰 Aperitivos y Golosinas',
-          '🚌 Transporte Divertido',
-          '🧸 Juguetes y Juegos',
-          '🎪 Actividades Divertidas',
-          '🏥 Cuidado al Crecer',
-          '💊 Cosas Saludables',
-          '✈️ Aventuras de Vacaciones',
-          '📚 Tiempo de Aprendizaje',
-          '🎁 Otras Cosas Buenas'
-        ],
-        simpsons: [
-          '🍩 Comida y Cerveza Duff',
-          '🚗 Auto y Transporte',
-          '📺 Entretenimiento',
-          '🎪 Diversión en Krusty Land',
-          '⚡ Planta Nuclear',
-          '🏥 Cuidado del Dr. Hibbert',
-          '✈️ Vacaciones Familiares',
-          '📚 Útiles Escolares',
-          '🔧 Otro Springfield'
-        ],
-        barbie: [
-          '💄 Belleza y Moda',
-          '🚗 Transporte Rosa',
-          '👗 Compras Masivas',
-          '🎉 Eventos Fabulosos',
-          '💅 Cuidado Personal',
-          '💊 Bienestar y Salud',
-          '✈️ Vacaciones de Ensueño',
-          '📚 Aprendizaje de Poder Femenino',
-          '💖 Otras Cosas Fabulosas'
-        ]
+        harryPotter: {
+          [CategoryKey.FOOD]: '🍖 Comida y Cerveza de Mantequilla',
+          [CategoryKey.TRANSPORT]: '🚂 Transporte Mágico',
+          [CategoryKey.BOOKS_SUPPLIES]: '📚 Libros y Suministros',
+          [CategoryKey.ENTERTAINMENT]: '🎭 Entretenimiento y Quidditch',
+          [CategoryKey.SERVICES]: '⚡ Servicios Mágicos',
+          [CategoryKey.HEALTH]: '🏥 Sanación y Pociones',
+          [CategoryKey.TRAVEL]: '✈️ Viajes Mágicos',
+          [CategoryKey.EDUCATION]: '🎓 Educación Mágica',
+          [CategoryKey.OTHER]: '🔮 Otros Artículos Mágicos'
+        },
+        starWars: {
+          [CategoryKey.FOOD]: '🍖 Cantina y Comida',
+          [CategoryKey.TRANSPORT]: '🚀 Transporte de Nave Espacial',
+          [CategoryKey.BOOKS_SUPPLIES]: '🔫 Armas y Equipo',
+          [CategoryKey.ENTERTAINMENT]: '🎮 Entretenimiento Holonet',
+          [CategoryKey.SERVICES]: '⚙️ Servicios de Droides',
+          [CategoryKey.HEALTH]: '💊 Médico y Bacta',
+          [CategoryKey.TRAVEL]: '🌌 Viajes en Hiperespacio',
+          [CategoryKey.EDUCATION]: '📚 Entrenamiento Jedi',
+          [CategoryKey.OTHER]: '🔧 Otro Equipo'
+        },
+        peppaPig: {
+          [CategoryKey.FOOD]: '🍰 Aperitivos y Golosinas',
+          [CategoryKey.TRANSPORT]: '🚌 Transporte Divertido',
+          [CategoryKey.BOOKS_SUPPLIES]: '🧸 Juguetes y Juegos',
+          [CategoryKey.ENTERTAINMENT]: '🎪 Actividades Divertidas',
+          [CategoryKey.SERVICES]: '🏥 Cuidado al Crecer',
+          [CategoryKey.HEALTH]: '💊 Cosas Saludables',
+          [CategoryKey.TRAVEL]: '✈️ Aventuras de Vacaciones',
+          [CategoryKey.EDUCATION]: '📚 Tiempo de Aprendizaje',
+          [CategoryKey.OTHER]: '🎁 Otras Cosas Buenas'
+        },
+        simpsons: {
+          [CategoryKey.FOOD]: '🍩 Comida y Cerveza Duff',
+          [CategoryKey.TRANSPORT]: '🚗 Auto y Transporte',
+          [CategoryKey.BOOKS_SUPPLIES]: '📺 Entretenimiento',
+          [CategoryKey.ENTERTAINMENT]: '🎪 Diversión en Krusty Land',
+          [CategoryKey.SERVICES]: '⚡ Planta Nuclear',
+          [CategoryKey.HEALTH]: '🏥 Cuidado del Dr. Hibbert',
+          [CategoryKey.TRAVEL]: '✈️ Vacaciones Familiares',
+          [CategoryKey.EDUCATION]: '📚 Útiles Escolares',
+          [CategoryKey.OTHER]: '🔧 Otro Springfield'
+        },
+        barbie: {
+          [CategoryKey.FOOD]: '💄 Belleza y Moda',
+          [CategoryKey.TRANSPORT]: '🚗 Transporte Rosa',
+          [CategoryKey.BOOKS_SUPPLIES]: '👗 Compras Masivas',
+          [CategoryKey.ENTERTAINMENT]: '🎉 Eventos Fabulosos',
+          [CategoryKey.SERVICES]: '💅 Cuidado Personal',
+          [CategoryKey.HEALTH]: '💊 Bienestar y Salud',
+          [CategoryKey.TRAVEL]: '✈️ Vacaciones de Ensueño',
+          [CategoryKey.EDUCATION]: '📚 Aprendizaje de Poder Femenino',
+          [CategoryKey.OTHER]: '💖 Otras Cosas Fabulosas'
+        }
       },
       languageSelector: {
         title: 'Elegir Idioma',

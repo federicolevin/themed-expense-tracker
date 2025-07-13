@@ -1,5 +1,5 @@
 import { Injectable, signal, computed } from '@angular/core';
-import { Expense } from '../models/expense.model';
+import { Expense, CategoryKey } from '../models/expense.model';
 
 @Injectable({
   providedIn: 'root'
@@ -67,16 +67,66 @@ export class ExpenseService {
       const stored = localStorage.getItem(this.STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
-        // Convert date strings back to Date objects
+        // Convert date strings back to Date objects and migrate old categories
         return parsed.map((expense: any) => ({
           ...expense,
-          date: new Date(expense.date)
+          date: new Date(expense.date),
+          category: this.migrateCategoryToKey(expense.category)
         }));
       }
     } catch (error) {
       console.warn('Error loading expenses from storage:', error);
     }
     return [];
+  }
+
+  private migrateCategoryToKey(category: any): CategoryKey {
+    // If it's already a CategoryKey, return it
+    if (Object.values(CategoryKey).includes(category)) {
+      return category as CategoryKey;
+    }
+    
+    // Map old string categories to keys
+    const categoryMapping: Record<string, CategoryKey> = {
+      // Food related
+      '🍖 Food & Butterbeer': CategoryKey.FOOD,
+      '🍖 Cantina & Food': CategoryKey.FOOD,
+      '🍰 Snacks & Treats': CategoryKey.FOOD,
+      '🍩 Food & Duff Beer': CategoryKey.FOOD,
+      '💄 Beauty & Fashion': CategoryKey.FOOD,
+      '🍖 Comida y Cerveza de Mantequilla': CategoryKey.FOOD,
+      '🍖 Cantina y Comida': CategoryKey.FOOD,
+      '🍰 Aperitivos y Golosinas': CategoryKey.FOOD,
+      '🍩 Comida y Cerveza Duff': CategoryKey.FOOD,
+      '💄 Belleza y Moda': CategoryKey.FOOD,
+      
+      // Transport related
+      '🚂 Magical Transportation': CategoryKey.TRANSPORT,
+      '🚀 Spaceship Transport': CategoryKey.TRANSPORT,
+      '🚌 Transport Fun': CategoryKey.TRANSPORT,
+      '🚗 Car & Transport': CategoryKey.TRANSPORT,
+      '🚗 Pink Transportation': CategoryKey.TRANSPORT,
+      '🚂 Transporte Mágico': CategoryKey.TRANSPORT,
+      '🚀 Transporte de Nave Espacial': CategoryKey.TRANSPORT,
+      '🚌 Transporte Divertido': CategoryKey.TRANSPORT,
+      '🚗 Auto y Transporte': CategoryKey.TRANSPORT,
+      '🚗 Transporte Rosa': CategoryKey.TRANSPORT,
+      
+      // Entertainment related
+      '🎭 Entertainment & Quidditch': CategoryKey.ENTERTAINMENT,
+      '🎮 Holonet Entertainment': CategoryKey.ENTERTAINMENT,
+      '🎪 Fun Activities': CategoryKey.ENTERTAINMENT,
+      '📺 Entertainment': CategoryKey.ENTERTAINMENT,
+      '🎉 Fabulous Events': CategoryKey.ENTERTAINMENT,
+      '🎭 Entretenimiento y Quidditch': CategoryKey.ENTERTAINMENT,
+      '🎮 Entretenimiento Holonet': CategoryKey.ENTERTAINMENT,
+      '🎪 Actividades Divertidas': CategoryKey.ENTERTAINMENT,
+      '📺 Entretenimiento': CategoryKey.ENTERTAINMENT,
+      '🎉 Eventos Fabulosos': CategoryKey.ENTERTAINMENT,
+    };
+    
+    // Return mapped category or default to OTHER
+    return categoryMapping[category] || CategoryKey.OTHER;
   }
 
   private saveExpensesToStorage(expenses: Expense[]): void {

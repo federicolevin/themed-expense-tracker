@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ExpenseService } from '../../services/expense.service';
 import { ThemeService } from '../../services/theme.service';
 import { LanguageService } from '../../services/language.service';
+import { CategoryKey } from '../../models/expense.model';
 
 @Component({
   selector: 'app-expense-dashboard',
@@ -30,10 +31,12 @@ export class ExpenseDashboardComponent {
   getCategoriesSorted() {
     const categories = this.expensesByCategory();
     const total = this.totalExpenses();
+    const themeId = this.themeService.currentTheme().id;
 
     return Object.entries(categories)
-      .map(([category, amount]) => ({
-        category,
+      .map(([categoryKey, amount]) => ({
+        category: categoryKey as CategoryKey,
+        categoryName: this.languageService.getCategoryName(categoryKey as CategoryKey, themeId),
         amount,
         percentage: total > 0 ? (amount / total) * 100 : 0
       }))

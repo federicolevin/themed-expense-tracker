@@ -1,5 +1,6 @@
 import { Injectable, signal, computed, effect } from '@angular/core';
 import { LANGUAGES, Language, LanguageId, ThemeKey } from '../models/language.model';
+import { CategoryKey } from '../models/expense.model';
 import { ThemeId } from '../models/theme.model';
 
 @Injectable({
@@ -55,8 +56,19 @@ export class LanguageService {
       totalTransactions: translations.totalTransactions[themeKey],
       expensesByCategory: translations.expensesByCategory[themeKey],
       recentTransactions: translations.recentTransactions[themeKey],
-      categories: translations.categories[themeKey]
+      categories: Object.values(translations.categories[themeKey])
     };
+  }
+
+  // Helper method to get category name by key for current theme
+  getCategoryName(categoryKey: CategoryKey, themeId: ThemeId): string {
+    const themeKey = this.getThemeKey(themeId);
+    return this.currentLanguage().translations.categories[themeKey][categoryKey];
+  }
+
+  // Helper method to get all category keys as array
+  getCategoryKeys(): CategoryKey[] {
+    return Object.values(CategoryKey);
   }
 
   // Get UI translations (non-theme specific)
