@@ -173,6 +173,41 @@ export interface Language {
       title: string;
       tooltip: string;
     };
+
+    // Tour translations
+    tour: {
+      welcome: {
+        title: string;
+        description: string;
+      };
+      settings: {
+        title: string;
+        description: string;
+      };
+      form: {
+        title: string;
+        description: string;
+      };
+      dashboard: {
+        title: string;
+        description: string;
+      };
+      list: {
+        title: string;
+        description: string;
+      };
+      finish: {
+        title: string;
+        description: string;
+      };
+      buttons: {
+        next: string;
+        previous: string;
+        skip: string;
+        finish: string;
+        startTour: string;
+      };
+    };
   };
 }
 
@@ -384,6 +419,39 @@ export const LANGUAGES: Record<string, Language> = {
       themeSelector: {
         title: 'Choose Theme',
         tooltip: 'Select your favorite theme'
+      },
+      tour: {
+        welcome: {
+          title: '🌟 Welcome to your Magical Expense Tracker! 🌟',
+          description: 'I\'m going to show you how to use this super fun app to track your expenses!'
+        },
+        settings: {
+          title: '⚙️ Settings Panel',
+          description: 'Here you can change the color theme and language of the app. Try different combinations!'
+        },
+        form: {
+          title: '📝 Add New Expenses',
+          description: 'In this form you can add your expenses. Write what you bought, how much it cost, and select a category.'
+        },
+        dashboard: {
+          title: '📊 Statistics Panel',
+          description: 'Here you can see cool charts that show how you spend your money and in which categories.'
+        },
+        list: {
+          title: '📋 Expense List',
+          description: 'This is your complete list of expenses. You can edit or delete them if you made a mistake.'
+        },
+        finish: {
+          title: '🚀 Ready to Start!',
+          description: 'You now know all the features! You can start adding your expenses and see how the magic works.'
+        },
+        buttons: {
+          next: 'Next',
+          previous: 'Previous',
+          skip: 'Skip Tour',
+          finish: 'Finish',
+          startTour: 'Start Tour'
+        }
       }
     }
   },
@@ -594,6 +662,39 @@ export const LANGUAGES: Record<string, Language> = {
       themeSelector: {
         title: 'Elegir Tema',
         tooltip: 'Selecciona tu tema favorito'
+      },
+      tour: {
+        welcome: {
+          title: '🌟 ¡Bienvenido a tu Rastreador de Gastos Mágico! 🌟',
+          description: '¡Te voy a enseñar cómo usar esta aplicación súper divertida para llevar control de tus gastos!'
+        },
+        settings: {
+          title: '⚙️ Panel de Configuración',
+          description: 'Aquí puedes cambiar el tema de colores y el idioma de la aplicación. ¡Prueba diferentes combinaciones!'
+        },
+        form: {
+          title: '📝 Agregar Nuevos Gastos',
+          description: 'En este formulario puedes agregar tus gastos. Escribe qué compraste, cuánto costó y selecciona una categoría.'
+        },
+        dashboard: {
+          title: '📊 Panel de Estadísticas',
+          description: 'Aquí puedes ver gráficos geniales que muestran cómo gastas tu dinero y en qué categorías.'
+        },
+        list: {
+          title: '📋 Lista de Gastos',
+          description: 'Esta es tu lista completa de gastos. Puedes editarlos o eliminarlos si te equivocaste.'
+        },
+        finish: {
+          title: '🚀 ¡Listo para Empezar!',
+          description: '¡Ya conoces todas las funciones! Ahora puedes empezar a agregar tus gastos y ver cómo funciona la magia.'
+        },
+        buttons: {
+          next: 'Siguiente',
+          previous: 'Anterior',
+          skip: 'Saltar Tour',
+          finish: 'Finalizar',
+          startTour: 'Iniciar Tour'
+        }
       }
     }
   }

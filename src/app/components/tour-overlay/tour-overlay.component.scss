@@ -1,0 +1,359 @@
+.tour-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10000;
+  pointer-events: none;
+  font-family: 'Comic Neue', cursive;
+}
+
+.tour-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  
+  /* Create a hole for the highlighted element */
+  -webkit-mask: 
+    radial-gradient(circle, transparent 0%, transparent 0%) no-repeat,
+    linear-gradient(#000 0%, #000 100%);
+  mask: 
+    radial-gradient(circle, transparent 0%, transparent 0%) no-repeat,
+    linear-gradient(#000 0%, #000 100%);
+  -webkit-mask-composite: subtract;
+  mask-composite: subtract;
+  
+  /* Position the hole */
+  -webkit-mask-position: 
+    var(--highlight-left, 0) var(--highlight-top, 0),
+    0 0;
+  mask-position: 
+    var(--highlight-left, 0) var(--highlight-top, 0),
+    0 0;
+  -webkit-mask-size: 
+    calc(var(--highlight-width, 0px) + 20px) calc(var(--highlight-height, 0px) + 20px),
+    100% 100%;
+  mask-size: 
+    calc(var(--highlight-width, 0px) + 20px) calc(var(--highlight-height, 0px) + 20px),
+    100% 100%;
+}
+
+.tour-tooltip {
+  position: absolute;
+  width: 300px;
+  max-width: calc(100vw - 20px);
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  pointer-events: all;
+  z-index: 10001;
+  overflow: hidden;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  animation: tour-tooltip-appear 0.3s ease-out;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcf7f, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7);
+    background-size: 300% 300%;
+    border-radius: 19px;
+    z-index: -1;
+    animation: tour-gradient-shift 3s ease infinite;
+  }
+}
+
+@keyframes tour-tooltip-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes tour-gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.tour-tooltip__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px 12px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  position: relative;
+}
+
+.tour-tooltip__icon {
+  font-size: 24px;
+  flex-shrink: 0;
+  animation: tour-icon-bounce 2s ease-in-out infinite;
+}
+
+@keyframes tour-icon-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.tour-tooltip__title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  flex: 1;
+  line-height: 1.3;
+}
+
+.tour-tooltip__close {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+  }
+}
+
+.tour-tooltip__content {
+  padding: 16px 20px;
+}
+
+.tour-tooltip__description {
+  margin: 0;
+  color: #444;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.tour-tooltip__footer {
+  padding: 16px 20px;
+  border-top: 1px solid #f0f0f0;
+  background: #fafafa;
+}
+
+.tour-tooltip__progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.tour-tooltip__step-counter {
+  font-size: 12px;
+  color: #666;
+  font-weight: 600;
+  min-width: 40px;
+}
+
+.tour-tooltip__progress-bar {
+  flex: 1;
+  height: 4px;
+  background: #e0e0e0;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.tour-tooltip__progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.tour-tooltip__buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.tour-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.tour-btn--primary {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  }
+}
+
+.tour-btn--secondary {
+  background: #f8f9fa;
+  color: #495057;
+  border: 1px solid #dee2e6;
+  
+  &:hover:not(:disabled) {
+    background: #e9ecef;
+    transform: translateY(-1px);
+  }
+}
+
+.tour-btn--skip {
+  background: transparent;
+  color: #6c757d;
+  
+  &:hover:not(:disabled) {
+    color: #495057;
+    background: rgba(0, 0, 0, 0.05);
+  }
+}
+
+/* Tooltip positioning arrows */
+.tour-tooltip--top::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 12px solid white;
+}
+
+.tour-tooltip--bottom::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid #667eea;
+}
+
+.tour-tooltip--left::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 12px solid white;
+}
+
+.tour-tooltip--right::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-right: 12px solid white;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .tour-tooltip {
+    width: calc(100vw - 40px);
+    position: fixed !important;
+    bottom: 20px !important;
+    left: 20px !important;
+    top: auto !important;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+  }
+  
+  .tour-tooltip--top::after,
+  .tour-tooltip--bottom::after,
+  .tour-tooltip--left::after,
+  .tour-tooltip--right::after {
+    display: none;
+  }
+  
+  .tour-tooltip__buttons {
+    justify-content: stretch;
+    flex-wrap: nowrap;
+  }
+  
+  .tour-btn {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+  
+  .tour-tooltip__header {
+    padding: 12px 16px 10px;
+  }
+  
+  .tour-tooltip__content {
+    padding: 12px 16px;
+  }
+  
+  .tour-tooltip__footer {
+    padding: 12px 16px;
+  }
+}
+
+/* Ensure tooltip is always on top and visible */
+.tour-tooltip {
+  z-index: 10001 !important;
+  position: fixed !important;
+}
+
+/* Add highlight effect to the target element */
+@keyframes tour-highlight-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(102, 126, 234, 0.1);
+  }
+}
+
+/* This class will be dynamically added to highlighted elements */
+.tour-highlight {
+  position: relative;
+  z-index: 9999;
+  animation: tour-highlight-pulse 2s ease-in-out infinite;
+}
